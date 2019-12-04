@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1575471138 source:d:\uni\term3\programming\dots&boxes\main.c
+	<stdio.h>
+	<stdlib.h>
+	"grid.h"
+
+1575470982 d:\uni\term3\programming\dots&boxes\grid.h
+
+1575471267 source:d:\uni\term3\programming\dots&boxes\grid.c
+
