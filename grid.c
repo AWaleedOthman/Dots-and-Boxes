@@ -23,7 +23,8 @@ void createGrid(char* grid, int size){
 void printGrid(char* grid, int size){
     //clears the command prompt
     system("cls");
-    printf("\n");
+    printArt();
+    printf("\n\n");
     printf("      ");
     //prints indexes above grid
     for(int i = 0; i<size; ++i){
@@ -113,8 +114,9 @@ void printGrid(char* grid, int size){
 //The following functions attempts to draw a line in a give position.
 //It returns 1 if the position is valid and returns 0 otherwise.
 int drawLine(char* grid, int size, int inputRow, int inputCol, int playerNum){
-    if((inputRow+inputCol)%2 != 0 && *((grid + (inputRow-1)*size)+(inputCol-1)) == ' ' && inputRow<size && inputCol<size){
+    if((inputRow+inputCol)%2 != 0 && *((grid + (inputRow-1)*size)+(inputCol-1)) == ' ' && inputRow<=size && inputCol<=size){
         *((grid + (inputRow-1)*size)+(inputCol-1)) = playerNum + '0';
+        movesLeft(-1);
         return 1;
     }else{
         return 0;
@@ -124,7 +126,7 @@ int drawLine(char* grid, int size, int inputRow, int inputCol, int playerNum){
 //The following functions attempts to assign a given position to a player.
 //It returns 1 if the position is valid and returns 0 otherwise.
 int assignBox(char* grid, int size, int inputRow, int inputCol, int playerNum){
-    if(inputRow%2 == 0 && inputCol%2 == 0 &&*((grid + (inputRow-1)*size)+(inputCol-1)) == ' ' && inputRow<size && inputCol<size){
+    if(inputRow%2 == 0 && inputCol%2 == 0 &&*((grid + (inputRow-1)*size)+(inputCol-1)) == ' ' && inputRow<=size && inputCol<=size){
             if(playerNum == 1){
                 *((grid + (inputRow-1)*size)+(inputCol-1)) = 'B';
             }else{
@@ -135,4 +137,12 @@ int assignBox(char* grid, int size, int inputRow, int inputCol, int playerNum){
     }else{
         return 0;
     }
+}
+
+void printArt(){
+    printf("            ____        _          ___     ____                      \n"
+         "           |  _ \\  ___ | |_ ___   ( _ )   | __ )  _____  _____  ___  \n"
+         "           | | | |/ _ \\| __/ __|  / _ \\/\\ |  _ \\ / _ \\ \\/ / _ \\/ __| \n"
+         "           | |_| | (_) | |_\\__ \\ | (_>  < | |_) | (_) >  <  __/\\__ \\ \n"
+         "           |____/ \\___/ \\__|___/  \\___/\\/ |____/ \\___/_/\\_\\___||___/ \n");
 }
