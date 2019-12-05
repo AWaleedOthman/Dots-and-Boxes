@@ -2,7 +2,7 @@ void createGrid(char* grid, int size){
     //START: fill points
     for(int row = 0; row<size; row+=2){
         for(int col = 0; col<size; col+=2){
-            *((grid + row*size)+col) = '*';
+            *((grid + row*size)+col) = 'o';
         }
     }
     //END: fill points
