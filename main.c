@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "grid.h"
 #include "gamePlay.h"
 
@@ -35,10 +36,10 @@ int main()
         }else if(choice == 2){
             n = 5;
         }else{
-            printf("Please enter desired number of boxes: ");
+            printf("Please enter desired number of boxes (between 1 & 10): ");
             scanf("%s", arrChoice);
             n = atoi(arrChoice);
-            while(n<1 || n>50){
+            while(n<1 || n>10){
                 printf("Invalid, please try again\n");
                 scanf("%s", arrChoice);
                 n = atoi(arrChoice);
@@ -49,9 +50,9 @@ int main()
         exit(0);
     }
     int size = 2*n+1;
-    char grid[size][size]; // the whole grid
+    char grid[size][size];
     createGrid(&grid[0][0], size);
-    movesLeft(2*n*(n+1));
+    movesLeft(2*n*(n+1)); //initializes number of moves left till end of game
 
     play(grid, size);
     return 0;
