@@ -1,5 +1,6 @@
 void play(char* grid, int size){
     int n = (size-1)/2;
+    int scoreInc; //to store increment of score
     char boxes[n][n]; // array with number of boxes where each cell contains number of sides remaining
     fillWith4s(&boxes[0][0], n);
     struct{ // structure containing both players
@@ -25,11 +26,12 @@ void play(char* grid, int size){
             inputRow = atoi(cRow);
         }
         if(turn == 1){
-            player1.score += checkBox(&boxes[0][0], n, inputRow, inputCol, grid, 1);
+            player1.score += (scoreInc = checkBox(&boxes[0][0], n, inputRow, inputCol, grid, 1));
+            turn = scoreInc? 1:2;
         }else{
-            player2.score += checkBox(&boxes[0][0], n, inputRow, inputCol, grid, 2);
+            player2.score += (scoreInc = checkBox(&boxes[0][0], n, inputRow, inputCol, grid, 2));
+            turn = scoreInc? 2:1;
         }
-        turn = turn==1? 2:1;
     }
     printGrid(grid, size);
 }
