@@ -125,12 +125,12 @@ int drawLine(char* grid, int size, int inputRow, int inputCol, int playerNum){
 
 //The following functions attempts to assign a given position to a player.
 //It returns 1 if the position is valid and returns 0 otherwise.
-int assignBox(char* grid, int size, int inputRow, int inputCol, int playerNum){
-    if(inputRow%2 == 0 && inputCol%2 == 0 &&*((grid + (inputRow-1)*size)+(inputCol-1)) == ' ' && inputRow<=size && inputCol<=size){
+int assignBox(char* grid, int size, int row, int col, int playerNum){
+    if(row%2 == 0 && col%2 == 0 &&*((grid + (row-1)*size)+(col-1)) == ' ' && row<=size && col<=size){
             if(playerNum == 1){
-                *((grid + (inputRow-1)*size)+(inputCol-1)) = 'B';
+                *((grid + (row-1)*size)+(col-1)) = 'B';
             }else{
-                *((grid + (inputRow-1)*size)+(inputCol-1)) = 'R';
+                *((grid + (row-1)*size)+(col-1)) = 'R';
             }
 
         return 1;

@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="gamePlay.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="gamePlay.h" />
 		<Unit filename="grid.c">
 			<Option compilerVar="CC" />
 		</Unit>
