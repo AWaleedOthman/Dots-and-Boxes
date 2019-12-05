@@ -40,6 +40,13 @@ void play(char* grid, int size){
     }
     printGrid(grid, size);
     printBar(turn, player1, player2, startingTime);
+    if(player1.score != player2.score){
+        printf("\n%sPlayer %d%s has won the game\n",
+               player1.score>player2.score? "\033[0;34m":"\033[0;31m",
+               player1.score>player2.score? 1:2, "\033[0m");
+    }else{
+        printf("\nIt's a tie!\n");
+    }
 }
 
 //The following function returns moves left after:
@@ -70,7 +77,8 @@ int checkBox(char* boxes, int n, int inputRow, int inputCol, char* grid, int pla
         boxesR = inputRow/2 - 1;
         boxesC = inputCol/2 - 1;
         if(boxesR != -1 && boxesR != n-1){
-            if((*((boxes + (boxesR)*n)+(boxesC)) -= 1) == 0){ //minus one from moves left in box and assign it if moves left is now zero
+            //minus one from moves left in box and assign it if moves left for that box is now zero
+            if((*((boxes + (boxesR)*n)+(boxesC)) -= 1) == 0){
                 assignBox(grid, 2*n+1, inputRow-1, inputCol, playerNum);
                 ++score;
             }
@@ -93,7 +101,8 @@ int checkBox(char* boxes, int n, int inputRow, int inputCol, char* grid, int pla
         boxesC = inputCol/2 -1;
         boxesR = inputRow/2 - 1;
         if(boxesC != -1 && boxesC != n-1){
-            if((*((boxes + (boxesR)*n)+(boxesC)) -= 1) == 0){ //minus one from moves left in box and assign it if moves left is now zero
+            //minus one from moves left in box and assign it if moves left for that box is now zero
+            if((*((boxes + (boxesR)*n)+(boxesC)) -= 1) == 0){
                 assignBox(grid, 2*n+1, inputRow, inputCol-1, playerNum);
                 ++score;
             }
@@ -116,7 +125,7 @@ int checkBox(char* boxes, int n, int inputRow, int inputCol, char* grid, int pla
     return score;
 }
 
-void printBar(int turn, Player player1, Player player2, int startingTime){
+void printBar(int turn, Player player1, Player player2, int startingTime){ // prints the info under the grid
     int timeElapsed = time(0) - startingTime;
     printf("\n\n");
     printf("%s",turn==1? "\033[0;34m": "\033[0;31m");

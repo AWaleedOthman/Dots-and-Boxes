@@ -9,9 +9,9 @@ int main()
     printArt();
     int choice, n;
     char arrChoice[256]; // string input
-    printf("\n\nMAIN MENUE:  -please choose one of the following-\n\n");
+    printf("\n\nMAIN MENU:  -please choose one of the following-\n\n");
     printf("1.Start Game\n2.Load Game\n3.Top 10\n4.Exit\n");
-    scanf("%s", arrChoice); //Solves a problem where the program crashed when entering a non-integer
+    scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
     choice = atoi(arrChoice);
     while(choice != 1 && choice != 2 && choice != 3 && choice != 4){
         printf("Invalid, please try again\n");
@@ -24,11 +24,11 @@ int main()
         printArt();
         printf("\n\nPlease choose one of the following:\n");
         printf("\n1.Beginner\n2.Expert\n3.Custom\n");
-        scanf("%s", arrChoice);
+        scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
         choice  = atoi(arrChoice);
         while(choice != 1 && choice != 2 && choice != 3){
             printf("Invalid, please try again\n");
-            scanf("%s", arrChoice);
+            scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
             choice = atoi(arrChoice);
         }
         if(choice == 1){
@@ -37,11 +37,11 @@ int main()
             n = 5;
         }else{
             printf("Please enter desired number of boxes (between 1 & 10): ");
-            scanf("%s", arrChoice);
+            scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
             n = atoi(arrChoice);
             while(n<1 || n>10){
                 printf("Invalid, please try again\n");
-                scanf("%s", arrChoice);
+                scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
                 n = atoi(arrChoice);
             }
         }
