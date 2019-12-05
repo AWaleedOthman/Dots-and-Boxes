@@ -25,18 +25,18 @@ void printGrid(char* grid, int size){
     system("cls");
     printArt();
     printf("\n\n");
-    printf("      ");
+    printf("     ");
     //prints indexes above grid
     for(int i = 0; i<size; ++i){
-    printf("%6d", i+1);
+    printf("%5d", i+1);
     }
     printf("\n\n");
     //prints grid with index before each row
     for(int row = 0; row<size; ++row){
 
         if(row%2 == 0){ //if row containing points
-            printf("%6d", row+1);
-            printf("%6c", *((grid + row*size)));
+            printf("%5d", row+1);
+            printf("%5c", *((grid + row*size)));
             for(int col = 1; col<size; ++col){
                 if(col%2 == 0){
                     printf("%c", *((grid + row*size)+col));
@@ -44,18 +44,18 @@ void printGrid(char* grid, int size){
                     //changing color depending on player then back to default
                     if(*((grid + row*size)+col) == '1'){
                         printf("\033[0;34m");
-                        for(int i = 0; i<11; ++i){
+                        for(int i = 0; i<9; ++i){
                             printf("%c", '-');
                         }
                         printf("\033[0m");
                     }else if(*((grid + row*size)+col) == '2'){
                         printf("\033[0;31m");
-                        for(int i = 0; i<11; ++i){
+                        for(int i = 0; i<9; ++i){
                             printf("%c", '-');
                         }
                         printf("\033[0m");
                     }else{
-                        for(int i = 0; i<11; ++i){
+                        for(int i = 0; i<9; ++i){
                             printf("%c", *((grid + row*size)+col));
                         }
                     }
@@ -65,43 +65,43 @@ void printGrid(char* grid, int size){
         }else{ // if row not containing points
             for(int i = 0; i<3; ++i){
                 if(i != 1){
-                    printf("      ");
+                    printf("     ");
                     for(int col = 0; col<size; ++col){
                         if(*((grid + row*size)+col) != '1' && *((grid + row*size)+col) != '2'){
-                            printf("      ");
+                            printf("     ");
                         }else{
                             if(*((grid + row*size)+col) == '1'){
                                 printf("\033[0;34m");
-                                printf("%6c", '|');
+                                printf("%5c", '|');
                                 printf("\033[0m");
                             }else if(*((grid + row*size)+col) == '2'){
                                 printf("\033[0;31m");
-                                printf("%6c", '|');
+                                printf("%5c", '|');
                                 printf("\033[0m");
                             }
                         }
                     }
                 }else{
-                    printf("%6d", row+1);
+                    printf("%5d", row+1);
                     for(int col = 0; col<size; ++col){
                         if(*((grid + row*size)+col) == '1' || *((grid + row*size)+col) == 'B'){
                             printf("\033[0;34m");
                             if(*((grid + row*size)+col) == '1'){
-                                printf("%6c", '|');
+                                printf("%5c", '|');
                             }else{
-                                printf("%6c", 'B');
+                                printf("%5c", 'B');
                             }
                             printf("\033[0m");
                         }else if(*((grid + row*size)+col) == '2' || *((grid + row*size)+col) == 'R'){
                             printf("\033[0;31m");
                             if(*((grid + row*size)+col) == '2'){
-                                printf("%6c", '|');
+                                printf("%5c", '|');
                             }else{
-                                printf("%6c", 'R');
+                                printf("%5c", 'R');
                             }
                             printf("\033[0m");
                         }else{
-                            printf("%6c", *((grid + row*size)+col));
+                            printf("%5c", *((grid + row*size)+col));
                         }
                     }
                 }
