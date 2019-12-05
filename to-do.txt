@@ -1,0 +1,14 @@
+*Chain <--- Later (Ask Eng.)
+*1 Player mode
+*Rank
+*Files
+	-Rankings
+	-Saved games
+*Undo/Redo
+*in-game menu
+*Update UI each minute <--- Later (may need threading)
+
+==========
+
+*.exe file
+*Report
