@@ -23,7 +23,7 @@ int main()
         system("cls");
         printArt();
         printf("\n\nPlease choose one of the following:\n");
-        printf("\n1.Beginner\n2.Expert\n3.Custom\n");
+        printf("\n1.Beginner (3*3)\n2.Expert (5*5)\n3.Custom\n");
         scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
         choice  = atoi(arrChoice);
         while(choice != 1 && choice != 2 && choice != 3){

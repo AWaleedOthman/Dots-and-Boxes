@@ -7,6 +7,9 @@
 *Undo/Redo
 *in-game menu
 *Update UI each minute <--- Later (may need threading)
+*Add how to play option in main menu
+*Add 'Back to main menu' option in all menus
+*Protest against users trying to make program crash
 
 ==========
 
