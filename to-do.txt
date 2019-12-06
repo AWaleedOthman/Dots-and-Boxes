@@ -1,15 +1,17 @@
-*Chain <--- Later (Ask Eng.)
-*1 Player mode
-*Rank
-*Files
+*1 Player mode //
+*Files //
 	-Rankings
 	-Saved games
-*Undo/Redo
-*in-game menu
+*Undo/Redo //
+*Add how to play option in main menu //Ahmad Waleed
+*Add 'Back to main menu' option in all menus //Ahmad Waleed
+*Protest against users trying to make program crash //
+
+==========
+
+*in-game menu //Ahmad Waleed (later)
+*Chain <--- Later (Ask Eng.)
 *Update UI each minute <--- Later (may need threading)
-*Add how to play option in main menu
-*Add 'Back to main menu' option in all menus
-*Protest against users trying to make program crash
 
 ==========
 
