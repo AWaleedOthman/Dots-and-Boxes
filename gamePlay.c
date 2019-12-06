@@ -12,21 +12,16 @@ void play(char* grid, int size){
     Player player1 = {0,0};
     Player player2 = {0,0};
     int inputRow, inputCol;
-    char cRow[256], cCol[256];
     int turn = 1;
     while(movesLeft(0)){
         printGrid(grid, size);
         printBar(turn, player1, player2, startingTime);
         printf("Please choose column then row separated by a comma: ");
-        scanf("%256[^,],%s", cCol, cRow);
-        inputCol = atoi(cCol);
-        inputRow = atoi(cRow);
+        getInput(&inputCol, &inputRow);
         while(!drawLine(grid, size, inputRow, inputCol, turn)){
             printf("Invalid\n");
             printf("Please choose column then row separated by a comma: ");
-            scanf("%256[^,],%s", cCol, cRow);
-            inputCol = atoi(cCol);
-            inputRow = atoi(cRow);
+            getInput(&inputCol, &inputRow);
         }
         if(turn == 1){
             player1.score += (scoreInc = checkBox(&boxes[0][0], n, inputRow, inputCol, grid, 1));
@@ -138,4 +133,35 @@ void printBar(int turn, Player player1, Player player2, int startingTime){ // pr
     printf("\033[0;31m");
     printf("\nPlayer 2:     played %d turns     Score = %d\n\n", player2.turnsPlayed, player2.score);
     printf("\033[0m");
+}
+
+//This function is for protecting program against malicious user's input
+void getInput(int* col, int* row){
+    char cCol[3];
+	cCol[2]='\0'; // null character for terminating string
+	char cRow[3];
+	cRow[3]='\0';
+	char temp[256];
+	for(int i = 0; i<255; ++i){
+	    temp[i]=',';
+	}
+	temp[255]='\0';
+	scanf("%2[^,]%255[^,]", cCol, temp);
+	while(temp[254] != ','){
+	    for(int i = 0; i<255; ++i){
+	    temp[i]=',';
+		}
+		scanf("%255[^,]",temp);
+	}
+	scanf(",%2[^ \n \t]", cRow);
+	/*
+	scanf("%255[^\n]", temp);
+	while(temp[254] != ','){
+	    for(int i = 0; i<255; ++i){
+	    temp[i]=',';
+		}
+		scanf("%255[^\n]",temp);
+	}*/
+	*col = atoi(cCol);
+	*row = atoi(cRow);
 }

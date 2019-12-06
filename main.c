@@ -9,6 +9,7 @@ int main()
     printArt();
     int choice, n;
     char arrChoice[256]; // string input
+    arrChoice[255] = '\0';
     printf("\n\nMAIN MENU:  -please choose one of the following-\n\n");
     printf("1.Start Game\n2.Load Game\n3.Top 10\n4.Exit\n");
     scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
