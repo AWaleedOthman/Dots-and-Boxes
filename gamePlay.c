@@ -156,24 +156,33 @@ void getInput(int* col, int* row){
 	if(cCol[1] == ','){
         cCol[1] = '\0';
         *col = atoi(cCol);
+	}else if(cCol[1] == '\n'){
+	    *col = 0;
+        *row = 0;
+        return;
 	}else if(atoi(cCol) <= 10 || atoi(cCol) >= 99){
         *col = 0;
         *row = 0;
         while(getchar() != '\n');
         return;
-	}else if(getchar() == ','){
+	}else if((temp=getchar()) == ','){
         *col = atoi(cCol);
 	}else{
         *col = 0;
         *row = 0;
-        while(getchar() != '\n');
+        if(temp != '\n'){
+            while(getchar() != '\n');
+        }
         return;
 	}
+	//reading second number
 	cRow[0] = getchar();
 	if(atoi(cRow) <= 0 || atoi(cRow) >= 9){
         *col = 0;
         *row = 0;
-        while(getchar() != '\n');
+        if(cRow[0] != '\n'){
+            while(getchar() != '\n');
+        }
         return;
 	}
 	cRow[1] = getchar();
@@ -185,12 +194,14 @@ void getInput(int* col, int* row){
         *row = 0;
         while(getchar() != '\n');
         return;
-	}else if(getchar() == '\n'){
+	}else if((temp=getchar()) == '\n'){
         *row = atoi(cRow);
 	}else{
         *col = 0;
         *row = 0;
-        while(getchar() != '\n');
+        if(temp != '\n'){
+            while(getchar() != '\n');
+        }
         return;
 	}
 }
