@@ -1,17 +1,20 @@
 *1 Player mode // search for 1 then 3 then 4 then 2 ((file)) //Abdo
 
+
 *Files // Abdelmonem
 	-Rankings
 	-Saved games
 
+
 *Undo/Redo //
 
-*Add 'Back to main menu' option in all menus //Waleed
 
-
-*Add how to play option in main menu //
+*Add how to play option in main menu //Waleed
 
 ==========
+
+*Add 'Back to main menu' option in load game & top 10 menus //Waleed
+
 
 *in-game menu //(later)
 
