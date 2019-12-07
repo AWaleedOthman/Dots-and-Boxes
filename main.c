@@ -9,7 +9,7 @@ int main()
     int choice, n;
     int flag; //flags back to main menu
     do{
-        flag = 0;
+        flag = 1;
         system("cls");
         printArt();
         printf("\n\nMAIN MENU:  -please choose one of the following-\n\n");
@@ -21,6 +21,7 @@ int main()
         }
         switch(choice){
         case 1:
+        {
             system("cls");
             printArt();
             printf("\n\nPlease choose one of the following:\n");
@@ -52,6 +53,20 @@ int main()
             play(grid, size);
             break;
         }
+        case 2: //case load game
+            system("cls");
+            //Write code here
+            while(getchar() != '\n');
+            break;
+        case 3: //case top10
+            system("cls");
+            //Write code here
+            while(getchar() != '\n');
+            break;
+        case 4: //case exit
+            flag = 0;
+            break;
+        }
     }while(flag);
     return 0;
 }
@@ -59,7 +74,7 @@ int main()
 void inputToMenu(int* choice){
     char arrChoice[3]; // string input
     arrChoice[2] = '\0';
-    arrChoice[0] = getchar();   //Solves a problem where the program crashes when entering a non-integer
+    while((arrChoice[0] = getchar()) == '\n');   //Solves a problem where the program crashes when entering a non-integer
     arrChoice[1] = getchar();
     if(arrChoice[1] == '\n'){
         arrChoice[1] = '\0';

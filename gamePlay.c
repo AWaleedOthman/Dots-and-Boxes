@@ -140,14 +140,27 @@ void printBar(int turn, Player player1, Player player2, int startingTime){ // pr
 void getInput(int* col, int* row){
     char cCol[3];
 	cCol[2]='\0'; // null character for terminating string
+	cCol[1]='\0';
 	char cRow[3];
-	cRow[3]='\0';
+	cRow[2]='\0';
+	cRow[1]='\0';
 	char temp;
-	cCol[0] = getchar();
+	while((cCol[0] = getchar()) == '\n');
+	if(atoi(cCol) <= 0 || atoi(cCol) >= 9){
+        *col = 0;
+        *row = 0;
+        while(getchar() != '\n');
+        return;
+	}
 	cCol[1] = getchar();
 	if(cCol[1] == ','){
         cCol[1] = '\0';
         *col = atoi(cCol);
+	}else if(atoi(cCol) <= 10 || atoi(cCol) >= 99){
+        *col = 0;
+        *row = 0;
+        while(getchar() != '\n');
+        return;
 	}else if(getchar() == ','){
         *col = atoi(cCol);
 	}else{
@@ -157,15 +170,27 @@ void getInput(int* col, int* row){
         return;
 	}
 	cRow[0] = getchar();
+	if(atoi(cRow) <= 0 || atoi(cRow) >= 9){
+        *col = 0;
+        *row = 0;
+        while(getchar() != '\n');
+        return;
+	}
 	cRow[1] = getchar();
 	if(cRow[1] == '\n'){
         cRow[1] = '\0';
         *row = atoi(cRow);
+	}else if(atoi(cRow) <= 10 || atoi(cRow) >= 99){
+        *col = 0;
+        *row = 0;
+        while(getchar() != '\n');
+        return;
 	}else if(getchar() == '\n'){
         *row = atoi(cRow);
 	}else{
-	    *col = 0;
+        *col = 0;
         *row = 0;
         while(getchar() != '\n');
+        return;
 	}
 }
