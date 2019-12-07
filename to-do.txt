@@ -1,9 +1,9 @@
+
 *1 Player mode // search for 1 then 3 then 4 then 2 ((file)) //Abdo
 
 
 *Files // Abdelmonem
-	-Rankings
-	-Saved games
+	-Save & Load
 
 
 *Undo/Redo //
@@ -13,17 +13,19 @@
 
 ==========
 
-*Add 'Back to main menu' option in load game & top 10 menus //Waleed
+*Add 'Back to main menu' option in load game menus //Waleed waiting for Save&Load
 
 
 *in-game menu (Exit, Save&Exit, Undo, Redo) //(later)
 
 ==========
 
-*.exe file
 *Report
 
 ==========
+
+
+
 
 *Chain <--- Later (Ask Eng.)
 *Update UI each minute <--- Later (may need threading)

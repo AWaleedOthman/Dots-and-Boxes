@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "rankings.h"
 typedef struct{ // structure containing both players
     int turnsPlayed;
     int score;
@@ -7,6 +8,7 @@ typedef struct{ // structure containing both players
 void play(char* grid, int size){
     int startingTime = time(0);
     int n = (size-1)/2;
+    int temp = 0; //to store value of input; useful for in-game menu
     int scoreInc; //to store increment of score
     char boxes[n][n]; // array with number of boxes where each cell contains number of sides remaining
     fillWith4s(&boxes[0][0], n);
@@ -18,11 +20,13 @@ void play(char* grid, int size){
         printGrid(grid, size);
         printBar(turn, player1, player2, startingTime);
         printf("Please choose column then row separated by a comma: ");
-        getInput(&inputCol, &inputRow);
+        temp = getInput(&inputCol, &inputRow);
+        if(temp == 4)return;
         while(!drawLine(grid, size, inputRow, inputCol, turn)){
             printf("Invalid\n");
             printf("Please choose column then row separated by a comma: ");
-            getInput(&inputCol, &inputRow);
+            temp = getInput(&inputCol, &inputRow);
+            if(temp == 4)return;
         }
         if(turn == 1){
             player1.score += (scoreInc = checkBox(&boxes[0][0], n, inputRow, inputCol, grid, 1));
@@ -37,12 +41,22 @@ void play(char* grid, int size){
     printGrid(grid, size);
     printBar(turn, player1, player2, startingTime);
     if(player1.score != player2.score){
+        int tempScore = player1.score>player2.score? player1.score:player2.score;
+        char tempName[21];
+        int i;
+        for(int i = 0; i<20; ++i)tempName[i]='\0';
         printf("\n%sPlayer %d%s has won the game\n",
                player1.score>player2.score? "\033[0;34m":"\033[0;31m",
                player1.score>player2.score? 1:2, "\033[0m");
+               if(checkHighScore(tempScore)){
+                printf("\nNew High Score!\nPlease enter username (20 character max. without spaces): ");
+                getName(tempName);
+                updateTop10(tempName, tempScore);
+               }
     }else{
         printf("\nIt's a tie!\n");
     }
+    while(getchar() != '\n');
 }
 
 //The following function returns moves left after:
@@ -134,10 +148,11 @@ void printBar(int turn, Player player1, Player player2, int startingTime){ // pr
     printf("\033[0;31m");
     printf("\nPlayer 2:     played %d turns     Score = %d\n\n", player2.turnsPlayed, player2.score);
     printf("\033[0m");
+    printf("E: exit to main menu\n\n");
 }
 
 //This function is for protecting program against malicious user's input
-void getInput(int* col, int* row){
+int getInput(int* col, int* row){
     char cCol[3];
 	cCol[2]='\0'; // null character for terminating string
 	cCol[1]='\0';
@@ -146,11 +161,22 @@ void getInput(int* col, int* row){
 	cRow[1]='\0';
 	char temp;
 	while((cCol[0] = getchar()) == '\n');
+	//for in-game menu
+	if(cCol[0] == 'E'){
+        if(getchar()=='\n')return 4;
+        else{
+        *col = 0;
+        *row = 0;
+        while(getchar() != '\n');
+        return 0;
+        }
+	}
+	//end in-game menu
 	if(atoi(cCol) <= 0 || atoi(cCol) >= 9){
         *col = 0;
         *row = 0;
         while(getchar() != '\n');
-        return;
+        return 0;
 	}
 	cCol[1] = getchar();
 	if(cCol[1] == ','){
@@ -159,12 +185,12 @@ void getInput(int* col, int* row){
 	}else if(cCol[1] == '\n'){
 	    *col = 0;
         *row = 0;
-        return;
+        return 0;
 	}else if(atoi(cCol) <= 10 || atoi(cCol) >= 99){
         *col = 0;
         *row = 0;
         while(getchar() != '\n');
-        return;
+        return 0;
 	}else if((temp=getchar()) == ','){
         *col = atoi(cCol);
 	}else{
@@ -173,7 +199,7 @@ void getInput(int* col, int* row){
         if(temp != '\n'){
             while(getchar() != '\n');
         }
-        return;
+        return 0;
 	}
 	//reading second number
 	cRow[0] = getchar();
@@ -183,7 +209,7 @@ void getInput(int* col, int* row){
         if(cRow[0] != '\n'){
             while(getchar() != '\n');
         }
-        return;
+        return 0;
 	}
 	cRow[1] = getchar();
 	if(cRow[1] == '\n'){
@@ -193,7 +219,7 @@ void getInput(int* col, int* row){
         *col = 0;
         *row = 0;
         while(getchar() != '\n');
-        return;
+        return 0;
 	}else if((temp=getchar()) == '\n'){
         *row = atoi(cRow);
 	}else{
@@ -202,6 +228,6 @@ void getInput(int* col, int* row){
         if(temp != '\n'){
             while(getchar() != '\n');
         }
-        return;
+        return 0;
 	}
 }

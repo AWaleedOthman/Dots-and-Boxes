@@ -3,16 +3,18 @@
 #include <time.h>
 #include "grid.h"
 #include "gamePlay.h"
+#include "rankings.h"
 
 int main()
 {
     int choice, n;
     int flag; //flags back to main menu
     do{
+        readTop10();
         flag = 1;
         system("cls");
         printArt();
-        printf("\n\nMAIN MENU:  -please choose one of the following-\n\n");
+        printf("\n\nMAIN MENU:  (please choose one of the following)\n\n");
         printf("1.Start Game\n2.Load Game\n3.Top 10\n4.Exit\n");
         inputToMenu(&choice);
         while(choice != 1 && choice != 2 && choice != 3 && choice != 4){
@@ -60,7 +62,8 @@ int main()
             break;
         case 3: //case top10
             system("cls");
-            //Write code here
+            printTop10();
+            printf("\n\nPress Enter to return to main menu\n");
             while(getchar() != '\n');
             break;
         case 4: //case exit
