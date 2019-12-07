@@ -8,16 +8,12 @@ int main()
 {
     printArt();
     int choice, n;
-    char arrChoice[256]; // string input
-    arrChoice[255] = '\0';
     printf("\n\nMAIN MENU:  -please choose one of the following-\n\n");
     printf("1.Start Game\n2.Load Game\n3.Top 10\n4.Exit\n");
-    scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
-    choice = atoi(arrChoice);
+    inputToMenu(&choice);
     while(choice != 1 && choice != 2 && choice != 3 && choice != 4){
         printf("Invalid, please try again\n");
-        scanf("%s", arrChoice);
-        choice = atoi(arrChoice);
+        inputToMenu(&choice);
     }
     switch(choice){
     case 1:
@@ -25,12 +21,10 @@ int main()
         printArt();
         printf("\n\nPlease choose one of the following:\n");
         printf("\n1.Beginner (3*3)\n2.Expert (5*5)\n3.Custom\n");
-        scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
-        choice  = atoi(arrChoice);
+        inputToMenu(&choice);
         while(choice != 1 && choice != 2 && choice != 3){
             printf("Invalid, please try again\n");
-            scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
-            choice = atoi(arrChoice);
+            inputToMenu(&choice);
         }
         if(choice == 1){
             n = 3;
@@ -38,12 +32,10 @@ int main()
             n = 5;
         }else{
             printf("Please enter desired number of boxes (between 1 & 10): ");
-            scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
-            n = atoi(arrChoice);
+            inputToMenu(&n);
             while(n<1 || n>10){
                 printf("Invalid, please try again\n");
-                scanf("%s", arrChoice); //Solves a problem where the program crashes when entering a non-integer
-                n = atoi(arrChoice);
+                inputToMenu(&n);
             }
         }
         break;
@@ -57,4 +49,19 @@ int main()
 
     play(grid, size);
     return 0;
+}
+
+void inputToMenu(int* choice){
+    char arrChoice[3]; // string input
+    arrChoice[2] = '\0';
+    arrChoice[0] = getchar();   //Solves a problem where the program crashes when entering a non-integer
+    arrChoice[1] = getchar();
+    if(arrChoice[1] == '\n'){
+        arrChoice[1] = '\0';
+        *choice = atoi(arrChoice);
+        arrChoice[1] = '\n';
+    }else{
+        while(getchar() != '\n');
+        *choice = 0;
+    }
 }

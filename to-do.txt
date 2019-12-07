@@ -1,19 +1,26 @@
-*1 Player mode //
-*Files //
+*1 Player mode // search for 1 then 3 then 4 then 2 ((file)) //Abdo
+
+*Files // Abdelmonem
 	-Rankings
 	-Saved games
+
 *Undo/Redo //
-*Add how to play option in main menu //Ahmad Waleed
-*Add 'Back to main menu' option in all menus //Ahmad Waleed
-*Protest against users trying to make program crash //
+
+*Add 'Back to main menu' option in all menus //Waleed
+
+
+*Add how to play option in main menu //
 
 ==========
 
-*in-game menu //Ahmad Waleed (later)
-*Chain <--- Later (Ask Eng.)
-*Update UI each minute <--- Later (may need threading)
+*in-game menu //(later)
 
 ==========
 
 *.exe file
 *Report
+
+==========
+
+*Chain <--- Later (Ask Eng.)
+*Update UI each minute <--- Later (may need threading)

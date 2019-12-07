@@ -1,3 +1,4 @@
+#include <stdio.h>
 typedef struct{ // structure containing both players
     int turnsPlayed;
     int score;
@@ -141,27 +142,30 @@ void getInput(int* col, int* row){
 	cCol[2]='\0'; // null character for terminating string
 	char cRow[3];
 	cRow[3]='\0';
-	char temp[256];
-	for(int i = 0; i<255; ++i){
-	    temp[i]=',';
+	char temp;
+	cCol[0] = getchar();
+	cCol[1] = getchar();
+	if(cCol[1] == ','){
+        cCol[1] = '\0';
+        *col = atoi(cCol);
+	}else if(getchar() == ','){
+        *col = atoi(cCol);
+	}else{
+        *col = 0;
+        *row = 0;
+        while(getchar() != '\n');
+        return;
 	}
-	temp[255]='\0';
-	scanf("%2[^,]%255[^,]", cCol, temp);
-	while(temp[254] != ','){
-	    for(int i = 0; i<255; ++i){
-	    temp[i]=',';
-		}
-		scanf("%255[^,]",temp);
+	cRow[0] = getchar();
+	cRow[1] = getchar();
+	if(cRow[1] == '\n'){
+        cRow[1] = '\0';
+        *row = atoi(cRow);
+	}else if(getchar() == '\n'){
+        *row = atoi(cRow);
+	}else{
+	    *col = 0;
+        *row = 0;
+        while(getchar() != '\n');
 	}
-	scanf(",%2[^ \n \t]", cRow);
-	/*
-	scanf("%255[^\n]", temp);
-	while(temp[254] != ','){
-	    for(int i = 0; i<255; ++i){
-	    temp[i]=',';
-		}
-		scanf("%255[^\n]",temp);
-	}*/
-	*col = atoi(cCol);
-	*row = atoi(cRow);
 }
