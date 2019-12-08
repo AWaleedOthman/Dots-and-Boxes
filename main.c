@@ -25,6 +25,7 @@ int main()
         switch(choice){
         case 1:
         {
+            flag2 = 0;
             do{
                 system("cls");
                 printArt();
