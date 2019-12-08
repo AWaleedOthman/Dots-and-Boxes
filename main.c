@@ -8,12 +8,11 @@
 int main()
 {
     int choice, n, comp, loaded;
-    int flag1; //flags back to main menu
-    int flag2 = 0;
+    int flag1 = 1; //to loop until user exits game
+    int flag2 = 0; //for when the user chooses back option
     do{
         comp = loaded = 0;
         readTop10();
-        flag1 = 1;
         system("cls");
         printArt();
         printf("\n\nMAIN MENU:  (please choose one of the following)\n\n");
