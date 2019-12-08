@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <windows.h>
 #include "rankings.h"
 typedef struct{ // structure containing both players
     int turnsPlayed;
@@ -138,10 +139,12 @@ int checkBox(char* boxes, int n, int inputRow, int inputCol, char* grid, int pla
 void printBar(int turn, Player player1, Player player2, int startingTime){ // prints the info under the grid
     int timeElapsed = time(0) - startingTime;
     printf("\n\n");
-    printf("%s",turn==1? "\033[0;34m": "\033[0;31m");
-    printf("Player %d's turn", turn);
-    printf("\033[0m");
-    printf("     Total moves left: %d", movesLeft(0));
+    if(movesLeft(0)){
+        printf("%s",turn==1? "\033[0;34m": "\033[0;31m");
+        printf("Player %d's turn     ", turn);
+        printf("\033[0m");
+    }
+    printf("Total moves left: %d", movesLeft(0));
     printf("     Time elapsed: %d minute(s) %d seconds\n", timeElapsed/60, timeElapsed%60);
     printf("\033[0;34m");
     printf("\nPlayer 1:     played %d turns     Score = %d", player1.turnsPlayed, player1.score);
@@ -230,4 +233,90 @@ int getInput(int* col, int* row){
         }
         return 0;
 	}
+}
+
+void howTo(){
+        int size = 3;
+        char grid[size][size];
+        createGrid(&grid[0][0], size);
+        movesLeft(4); //initializes number of moves left till end of game
+        int startingTime = time(0);
+        int n = 1;
+        int temp = 0; //to store value of input; useful for in-game menu
+        int scoreInc; //to store increment of score
+        char boxes[1][1]; // array with number of boxes where each cell contains number of sides remaining
+        fillWith4s(&boxes[0][0], 1);
+        Player player1 = {0,0};
+        Player player2 = {0,0};
+        int inputRow, inputCol;
+        //First Move
+        int turn = 1;
+        printGrid(grid, size);
+        printBar(turn, player1, player2, startingTime);
+        printf("Please choose column then row separated by a comma: ");
+        Sleep(1000);
+        inputCol = 3;
+        printf("%d", inputCol);
+        Sleep(1000);
+        printf(",");
+        Sleep(1000);
+        inputRow = 2;
+        printf("%d", inputRow);
+        Sleep(1000);
+        drawLine(grid, size, inputRow, inputCol, turn);
+        ++player1.turnsPlayed;
+        //Second Move
+        turn = 2;
+        printGrid(grid, size);
+        printBar(turn, player1, player2, startingTime);
+        printf("Please choose column then row separated by a comma: ");
+        Sleep(1000);
+        inputCol = 2;
+        printf("%d", inputCol);
+        Sleep(1000);
+        printf(",");
+        Sleep(1000);
+        inputRow = 3;
+        printf("%d", inputRow);
+        Sleep(1000);
+        drawLine(grid, size, inputRow, inputCol, turn);
+        ++player2.turnsPlayed;
+        //Third Move
+        turn = 1;
+        printGrid(grid, size);
+        printBar(turn, player1, player2, startingTime);
+        printf("Please choose column then row separated by a comma: ");
+        Sleep(1000);
+        inputCol = 1;
+        printf("%d", inputCol);
+        Sleep(1000);
+        printf(",");
+        Sleep(1000);
+        inputRow = 2;
+        printf("%d", inputRow);
+        Sleep(1000);
+        drawLine(grid, size, inputRow, inputCol, turn);
+        ++player1.turnsPlayed;
+        //Last Move
+        turn = 2;
+        printGrid(grid, size);
+        printBar(turn, player1, player2, startingTime);
+        printf("Please choose column then row separated by a comma: ");
+        Sleep(1000);
+        inputCol = 2;
+        printf("%d", inputCol);
+        Sleep(1000);
+        printf(",");
+        Sleep(1000);
+        inputRow = 1;
+        printf("%d", inputRow);
+        Sleep(1000);
+        drawLine(grid, size, inputRow, inputCol, turn);
+        ++player2.turnsPlayed;
+        ++player2.score;
+        assignBox(&grid[0][0], 3, 2, 2, 2);
+        //End turns
+        printGrid(grid, size);
+        printBar(turn, player1, player2, startingTime);
+        printf("%sPlayer 2 has won the game%s\n", "\033[0;31m", "\033[0m");
 }

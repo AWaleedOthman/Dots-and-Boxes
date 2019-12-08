@@ -15,9 +15,9 @@ int main()
         system("cls");
         printArt();
         printf("\n\nMAIN MENU:  (please choose one of the following)\n\n");
-        printf("1.Start Game\n2.Load Game\n3.Top 10\n4.Exit\n");
+        printf("1.Start Game\n2.Load Game\n3.Top 10\n4.How To Play\n5.Exit\n");
         inputToMenu(&choice);
-        while(choice != 1 && choice != 2 && choice != 3 && choice != 4){
+        while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5){
             printf("Invalid, please try again\n");
             inputToMenu(&choice);
         }
@@ -66,7 +66,11 @@ int main()
             printf("\n\nPress Enter to return to main menu\n");
             while(getchar() != '\n');
             break;
-        case 4: //case exit
+        case 4: //how to
+            howTo();
+            while(getchar() != '\n');
+            break;
+        case 5: //case exit
             flag = 0;
             break;
         }
