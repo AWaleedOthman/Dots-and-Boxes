@@ -7,11 +7,13 @@
 
 int main()
 {
-    int choice, n;
-    int flag; //flags back to main menu
+    int choice, n, comp, loaded;
+    int flag1; //flags back to main menu
+    int flag2 = 0;
     do{
+        comp = loaded = 0;
         readTop10();
-        flag = 1;
+        flag1 = 1;
         system("cls");
         printArt();
         printf("\n\nMAIN MENU:  (please choose one of the following)\n\n");
@@ -24,37 +26,52 @@ int main()
         switch(choice){
         case 1:
         {
-            system("cls");
-            printArt();
-            printf("\n\nPlease choose one of the following:\n");
-            printf("\n1.Beginner (3*3)\n2.Expert (5*5)\n3.Custom\n4.Back To Main Menu\n");
-            inputToMenu(&choice);
-            while(choice != 1 && choice != 2 && choice != 3 && choice != 4){
-                printf("Invalid, please try again\n");
+            do{
+                system("cls");
+                printArt();
+                printf("\n\nPlease choose one of the following:\n");
+                printf("\n1.Beginner (3*3)\n2.Expert (5*5)\n3.Custom\n4.Back\n");
                 inputToMenu(&choice);
-            }
-            if(choice == 1){
-                n = 3;
-            }else if(choice == 2){
-                n = 5;
-            }else if(choice == 4){
-                flag = 1;
-                break;
-            }else{
-                printf("Please enter desired number of boxes (between 1 & 10): ");
-                inputToMenu(&n);
-                while(n<1 || n>10){
+                while(choice != 1 && choice != 2 && choice != 3 && choice != 4){
                     printf("Invalid, please try again\n");
-                    inputToMenu(&n);
+                    inputToMenu(&choice);
                 }
-            }
+                if(choice == 1){ //beginner
+                    n = 2;
+                }else if(choice == 2){ //expert
+                    n = 5;
+                }else if(choice == 4){
+                    flag2 = 1;
+                    break;
+                }else{
+                    printf("Please enter desired number of boxes (between 1 & 9): ");
+                    inputToMenu(&n);
+                    while(n<1 || n>9){
+                        printf("Invalid, please try again\n");
+                        inputToMenu(&n);
+                    }
+                }
+                system("cls");
+                printArt();
+                printf("\n\nPlease choose one of the following:\n");
+                printf("\n1.One Player\n2.Two Players\n3.Back\n");
+                inputToMenu(&choice);
+                while(choice != 1 && choice != 2 && choice != 3){
+                    printf("Invalid, please try again\n");
+                    inputToMenu(&choice);
+                }
+                if(choice == 2){
+                    comp = 1;
+                }
+            }while(choice == 3);
+            if(flag2)break;
             int size = 2*n+1;
             char grid[size][size];
             createGrid(&grid[0][0], size);
             movesLeft(2*n*(n+1)); //initializes number of moves left till end of game
-            play(grid, size);
+            play(grid, size, comp);
             break;
-        }
+        }// End Case 1
         case 2: //case load game
             system("cls");
             //Write code here
@@ -71,10 +88,10 @@ int main()
             while(getchar() != '\n');
             break;
         case 5: //case exit
-            flag = 0;
+            flag1 = 0;
             break;
         }
-    }while(flag);
+    }while(flag1);
     return 0;
 }
 

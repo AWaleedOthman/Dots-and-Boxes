@@ -1,12 +1,16 @@
 #include <stdio.h>
+#ifdef _WIN32
 #include <windows.h>
+#else //This should work for Unix. It is included since Eng. Reham works on Linux -I think.
+#include <unistd.h>
+#endif // _WIN32
 #include "rankings.h"
 typedef struct{ // structure containing both players
     int turnsPlayed;
     int score;
     }Player;
 
-void play(char* grid, int size){
+void play(char* grid, int size, int comp){
     int startingTime = time(0);
     int n = (size-1)/2;
     int temp = 0; //to store value of input; useful for in-game menu
@@ -254,15 +258,15 @@ void howTo(){
         printGrid(grid, size);
         printBar(turn, player1, player2, startingTime);
         printf("Please choose column then row separated by a comma: ");
-        Sleep(1000);
+        holdOn();
         inputCol = 3;
         printf("%d", inputCol);
-        Sleep(1000);
+        holdOn();
         printf(",");
-        Sleep(1000);
+        holdOn();
         inputRow = 2;
         printf("%d", inputRow);
-        Sleep(1000);
+        holdOn();
         drawLine(grid, size, inputRow, inputCol, turn);
         ++player1.turnsPlayed;
         //Second Move
@@ -270,15 +274,15 @@ void howTo(){
         printGrid(grid, size);
         printBar(turn, player1, player2, startingTime);
         printf("Please choose column then row separated by a comma: ");
-        Sleep(1000);
+        holdOn();
         inputCol = 2;
         printf("%d", inputCol);
-        Sleep(1000);
+        holdOn();
         printf(",");
-        Sleep(1000);
+        holdOn();
         inputRow = 3;
         printf("%d", inputRow);
-        Sleep(1000);
+        holdOn();
         drawLine(grid, size, inputRow, inputCol, turn);
         ++player2.turnsPlayed;
         //Third Move
@@ -286,15 +290,15 @@ void howTo(){
         printGrid(grid, size);
         printBar(turn, player1, player2, startingTime);
         printf("Please choose column then row separated by a comma: ");
-        Sleep(1000);
+        holdOn();
         inputCol = 1;
         printf("%d", inputCol);
-        Sleep(1000);
+        holdOn();
         printf(",");
-        Sleep(1000);
+        holdOn();
         inputRow = 2;
         printf("%d", inputRow);
-        Sleep(1000);
+        holdOn();
         drawLine(grid, size, inputRow, inputCol, turn);
         ++player1.turnsPlayed;
         //Last Move
@@ -302,15 +306,15 @@ void howTo(){
         printGrid(grid, size);
         printBar(turn, player1, player2, startingTime);
         printf("Please choose column then row separated by a comma: ");
-        Sleep(1000);
+        holdOn();
         inputCol = 2;
         printf("%d", inputCol);
-        Sleep(1000);
+        holdOn();
         printf(",");
-        Sleep(1000);
+        holdOn();
         inputRow = 1;
         printf("%d", inputRow);
-        Sleep(1000);
+        holdOn();
         drawLine(grid, size, inputRow, inputCol, turn);
         ++player2.turnsPlayed;
         ++player2.score;
@@ -319,4 +323,14 @@ void howTo(){
         printGrid(grid, size);
         printBar(turn, player1, player2, startingTime);
         printf("%sPlayer 2 has won the game%s\n", "\033[0;31m", "\033[0m");
+        printf("\nPress Enter to return to main menu\n");
+
+}
+
+void holdOn(){
+    #ifdef _WIN32
+    Sleep(1000);
+    #else
+    Sleep(1);
+    #endif // _WIN32
 }

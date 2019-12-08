@@ -2,14 +2,11 @@
 *1 Player mode // search for 1 then 3 then 4 then 2 ((file)) //Abdo
 
 
-*Files // Abdelmonem
-	-Save & Load
+*Save & Load //Abdelmonem
 
 
-*Undo/Redo //
+*Undo/Redo //Waleed
 
-
-*Add how to play option in main menu //Waleed
 
 ==========
 

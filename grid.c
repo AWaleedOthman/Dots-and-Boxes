@@ -45,13 +45,13 @@ void printGrid(char* grid, int size){
                     if(*((grid + row*size)+col) == '1'){
                         printf("\033[0;34m");
                         for(int i = 0; i<9; ++i){
-                            printf("%c", '-');
+                            printf("%c", 196);
                         }
                         printf("\033[0m");
                     }else if(*((grid + row*size)+col) == '2'){
                         printf("\033[0;31m");
                         for(int i = 0; i<9; ++i){
-                            printf("%c", '-');
+                            printf("%c", 196);
                         }
                         printf("\033[0m");
                     }else{
@@ -72,11 +72,11 @@ void printGrid(char* grid, int size){
                         }else{
                             if(*((grid + row*size)+col) == '1'){
                                 printf("\033[0;34m");
-                                printf("%5c", '|');
+                                printf("%5c", 179);
                                 printf("\033[0m");
                             }else if(*((grid + row*size)+col) == '2'){
                                 printf("\033[0;31m");
-                                printf("%5c", '|');
+                                printf("%5c", 179);
                                 printf("\033[0m");
                             }
                         }
@@ -87,7 +87,7 @@ void printGrid(char* grid, int size){
                         if(*((grid + row*size)+col) == '1' || *((grid + row*size)+col) == 'B'){
                             printf("\033[0;34m");
                             if(*((grid + row*size)+col) == '1'){
-                                printf("%5c", '|');
+                                printf("%5c", 179);
                             }else{
                                 printf("%5c", 'B');
                             }
@@ -95,7 +95,7 @@ void printGrid(char* grid, int size){
                         }else if(*((grid + row*size)+col) == '2' || *((grid + row*size)+col) == 'R'){
                             printf("\033[0;31m");
                             if(*((grid + row*size)+col) == '2'){
-                                printf("%5c", '|');
+                                printf("%5c", 179);
                             }else{
                                 printf("%5c", 'R');
                             }
