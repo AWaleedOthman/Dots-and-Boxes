@@ -68,7 +68,6 @@ int main()
             int size = 2*n+1;
             char grid[size][size];
             createGrid(&grid[0][0], size);
-            movesLeft(2*n*(n+1)); //initializes number of moves left till end of game
             play(grid, size, comp);
             break;
         }// End Case 1

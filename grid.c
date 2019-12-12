@@ -113,30 +113,31 @@ void printGrid(char* grid, int size){
 
 //The following functions attempts to draw a line in a give position.
 //It returns 1 if the position is valid and returns 0 otherwise.
-int drawLine(char* grid, int size, int inputRow, int inputCol, int playerNum){
+int drawLine(char* grid, int size, int inputRow, int inputCol, int playerNum, int* undo, int* redo, int turn,
+             int lastWasUndoRedo, int possibleMoves, int thisIsUndoRedo){
+    int n = (size-1)/2;
     if((inputRow+inputCol)%2 != 0 && *((grid + (inputRow-1)*size)+(inputCol-1)) == ' ' && inputRow<=size && inputCol<=size){
         *((grid + (inputRow-1)*size)+(inputCol-1)) = playerNum + '0';
         movesLeft(-1);
+        addUndo(undo, inputRow, inputCol, turn);
+
+        if(lastWasUndoRedo && !thisIsUndoRedo){
+                clearRedo(redo, possibleMoves);
+        }
+
+
         return 1;
     }else{
         return 0;
     }
 }
 
-//The following functions attempts to assign a given position to a player.
-//It returns 1 if the position is valid and returns 0 otherwise.
-int assignBox(char* grid, int size, int row, int col, int playerNum){
-    if(row%2 == 0 && col%2 == 0 &&*((grid + (row-1)*size)+(col-1)) == ' ' && row<=size && col<=size){
+void assignBox(char* grid, int size, int row, int col, int playerNum){
             if(playerNum == 1){
                 *((grid + (row-1)*size)+(col-1)) = 'B';
             }else{
                 *((grid + (row-1)*size)+(col-1)) = 'R';
             }
-
-        return 1;
-    }else{
-        return 0;
-    }
 }
 
 void printArt(){

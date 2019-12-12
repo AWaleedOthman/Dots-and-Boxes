@@ -31,6 +31,10 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="computer.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="computer.h" />
 		<Unit filename="gamePlay.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -46,6 +50,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="rankings.h" />
+		<Unit filename="undo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="undo.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -11,28 +11,57 @@ typedef struct{ // structure containing both players
     }Player;
 
 void play(char* grid, int size, int comp){
+    int flag = 0, lastWasUndoRedo = 0, thisIsUndoRedo = 0;
     int startingTime = time(0);
     int n = (size-1)/2;
+    movesLeft(2*n*(n+1)); //initializes number of moves left till end of game
     int temp = 0; //to store value of input; useful for in-game menu
     int scoreInc; //to store increment of score
     char boxes[n][n]; // array with number of boxes where each cell contains number of sides remaining
+    int undo[2*n*(n+1)][3]; //array for undo
+    int redo[2*n*(n+1)][3];//for redo
+    fillWith0s(&undo[0][0], &redo[0][0], 2*n*(n+1));
     fillWith4s(&boxes[0][0], n);
     Player player1 = {0,0};
     Player player2 = {0,0};
     int inputRow, inputCol;
     int turn = 1;
     while(movesLeft(0)){
+        thisIsUndoRedo = 0;
+        flag=1;
         printGrid(grid, size);
         printBar(turn, player1, player2, startingTime);
-        printf("Please choose column then row separated by a comma: ");
-        temp = getInput(&inputCol, &inputRow);
-        if(temp == 4)return;
-        while(!drawLine(grid, size, inputRow, inputCol, turn)){
+            printf("Please choose column then row separated by a comma: ");
+            temp = getInput(&inputCol, &inputRow);
+            if(temp == 4)return;
+            else if(temp == 1){ //Undo
+                undoPlay(grid, size, &undo[0][0], 2*n*(n+1), boxes, &turn, &player1, &player2, &redo[0][0]);
+                lastWasUndoRedo = 1;
+                continue;
+            }else if(temp == 2){ //Redo
+                redoPlay(&inputRow, &inputCol, &redo[0][0], 2*n*(n+1), &turn);
+                thisIsUndoRedo = 1;
+                lastWasUndoRedo = 1;
+            }
+
+        while(flag && !drawLine(grid, size, inputRow, inputCol, turn, &undo[0][0], &redo[0][0], turn, lastWasUndoRedo, 2*n*(n+1), thisIsUndoRedo)){
+            thisIsUndoRedo = 0;
             printf("Invalid\n");
             printf("Please choose column then row separated by a comma: ");
             temp = getInput(&inputCol, &inputRow);
             if(temp == 4)return;
+            else if(temp == 1){ //Undo
+                undoPlay(grid, size, &undo[0][0], 2*n*(n+1), boxes, &turn, &player1, &player2, &redo[0][0]);
+                flag=0;
+                lastWasUndoRedo = 1;
+            }else if(temp == 2){ //Redo
+                thisIsUndoRedo = 1;
+                lastWasUndoRedo = 1;
+                redoPlay(&inputRow, &inputCol, &redo[0][0], 2*n*(n+1), &turn);
+            }
         }
+        if(!flag)continue;
+        if(!thisIsUndoRedo){lastWasUndoRedo = 0;}
         if(turn == 1){
             player1.score += (scoreInc = checkBox(&boxes[0][0], n, inputRow, inputCol, grid, 1));
             ++player1.turnsPlayed;
@@ -66,12 +95,15 @@ void play(char* grid, int size, int comp){
 
 //The following function returns moves left after:
 //deducting one if input is -1
+//increasing one if input is 1
 //assigning the input to be the moves left
 //doing nothing on number of moves left if input is 0
 int movesLeft(int moves){
     static int movesLeft;
     if(moves == -1){
         --movesLeft;
+    }else if(moves == 1){
+     ++movesLeft;
     }else if(moves != 0){
         movesLeft = moves;
     }
@@ -141,6 +173,8 @@ int checkBox(char* boxes, int n, int inputRow, int inputCol, char* grid, int pla
 }
 
 void printBar(int turn, Player player1, Player player2, int startingTime){ // prints the info under the grid
+    char s1[] = "\033[1m";
+    char s2[] = "\033[0m";
     int timeElapsed = time(0) - startingTime;
     printf("\n\n");
     if(movesLeft(0)){
@@ -155,7 +189,7 @@ void printBar(int turn, Player player1, Player player2, int startingTime){ // pr
     printf("\033[0;31m");
     printf("\nPlayer 2:     played %d turns     Score = %d\n\n", player2.turnsPlayed, player2.score);
     printf("\033[0m");
-    printf("E: exit to main menu\n\n");
+    printf("%sU%s: undo   %sR%s: redo   %sS%s: save   %sE%s: exit to main menu\n\n",s1,s2,s1,s2,s1,s2,s1,s2);
 }
 
 //This function is for protecting program against malicious user's input
@@ -171,6 +205,22 @@ int getInput(int* col, int* row){
 	//for in-game menu
 	if(cCol[0] == 'E'){
         if(getchar()=='\n')return 4;
+        else{
+        *col = 0;
+        *row = 0;
+        while(getchar() != '\n');
+        return 0;
+        }
+	}else if(cCol[0] == 'U'){
+        if(getchar()=='\n')return 1;
+        else{
+        *col = 0;
+        *row = 0;
+        while(getchar() != '\n');
+        return 0;
+        }
+	}else if(cCol[0] == 'R'){
+        if(getchar()=='\n')return 2;
         else{
         *col = 0;
         *row = 0;

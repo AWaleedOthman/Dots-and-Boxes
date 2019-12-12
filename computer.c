@@ -33,6 +33,7 @@ int col=*compcol;
         *compcol+=1;
 }
 }
+/*
 void compChoose(){
 if (compsearch(&boxes[0][0],n,compcol,comprow,1)){
     comSearchRc(grid,size,compcol,comrow);
@@ -47,3 +48,4 @@ else if(compsearch(&boxes[0][0],n,compcol,comprow,2)){
       comSearchRc(grid,size,compcol,comrow);
 }
 }
+*/
