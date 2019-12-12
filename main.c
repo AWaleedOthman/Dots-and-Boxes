@@ -60,7 +60,7 @@ int main()
                     printf("Invalid, please try again\n");
                     inputToMenu(&choice);
                 }
-                if(choice == 2){
+                if(choice == 1){
                     comp = 1;
                 }
             }while(choice == 3);

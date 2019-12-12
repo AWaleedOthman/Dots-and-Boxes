@@ -31,18 +31,23 @@ void play(char* grid, int size, int comp){
         flag=1;
         printGrid(grid, size);
         printBar(turn, player1, player2, startingTime);
+        if(comp && turn == 2){
+            holdOn();
+            compChoose(&boxes[0][0], n, grid, size, &inputRow, &inputCol);
+        }else{
             printf("Please choose column then row separated by a comma: ");
             temp = getInput(&inputCol, &inputRow);
-            if(temp == 4)return;
-            else if(temp == 1){ //Undo
-                undoPlay(grid, size, &undo[0][0], 2*n*(n+1), boxes, &turn, &player1, &player2, &redo[0][0]);
-                lastWasUndoRedo = 1;
-                continue;
-            }else if(temp == 2){ //Redo
-                redoPlay(&inputRow, &inputCol, &redo[0][0], 2*n*(n+1), &turn);
-                thisIsUndoRedo = 1;
-                lastWasUndoRedo = 1;
-            }
+        }
+        if(temp == 4)return;
+        else if(temp == 1){ //Undo
+            undoPlay(grid, size, &undo[0][0], 2*n*(n+1), boxes, &turn, &player1, &player2, &redo[0][0]);
+            lastWasUndoRedo = 1;
+            continue;
+        }else if(temp == 2){ //Redo
+            redoPlay(&inputRow, &inputCol, &redo[0][0], 2*n*(n+1), &turn);
+            thisIsUndoRedo = 1;
+            lastWasUndoRedo = 1;
+        }
 
         while(flag && !drawLine(grid, size, inputRow, inputCol, turn, &undo[0][0], &redo[0][0], turn, lastWasUndoRedo, 2*n*(n+1), thisIsUndoRedo)){
             thisIsUndoRedo = 0;
