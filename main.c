@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <ctype.h>
 #include "grid.h"
 #include "gamePlay.h"
 #include "rankings.h"
-#include "undo.h"
-#include "computer.h"
-
+#include "save.h"
 
 int main()
 {
     int choice, n, comp, loaded;
+    int loadedMoves = 0; // save & load should add int fileNumber replace it with all 2s
     int flag1 = 1; //to loop until user exits game
     int flag2 = 0; //for when the user chooses back option
     do{
@@ -68,37 +68,31 @@ int main()
                 }
             }while(choice == 3);
             if(flag2)break;
-
-            int size = 2*n+1;////////////////OR load and load comp
+            int size = 2*n+1;
             char grid[size][size];
-            createGrid(&grid[0][0], size);//////////////OR load
-            play(grid, size, comp, loaded);
-
+            createGrid(&grid[0][0], size);
+            play(grid, size, comp, loaded,loadedMoves);
             break;
         }// End Case 1
-        case 2: //case load game
+        case 2: {//case load game
             system("cls");
-            printArt();
-            printf("\n\nPlease choose a game to load:\n");
-            printf("\n1.Game 1\n2.Game 2\n3.Game 3\n4.Back\n");
-            do{
-              inputToMenu(&choice);
-              if(choice==1){
-                loaded = 1;
-                //load game 1
-              }else if(choice==2){
-                loaded = 1;
-                //load game 2
-              }else if(choice==3){
-                loaded = 1;
-                //load game 2
-              }else if(choice==4){
-                break;
-              }else{
-                printf("Invalid, please try again\n");
-              }
-          }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
-          break;
+            loaded = 1;
+            FILE *load;
+            char loadedFile[20];
+            fileName(2,loadedFile);
+            load = fopen(loadedFile,"r");
+            fscanf(load,"%1d",&n);
+            fseek(load,(n*n+1),SEEK_SET);
+            fscanf(load,"%1d",&comp);
+            fscanf(load,"%d",&loadedMoves);
+            fclose(load);
+            int size = 2*n+1;
+            char grid[size][size];
+            loadGrid(grid,size,2);
+            play(grid,size,comp,loaded,loadedMoves);
+            while(getchar() != '\n');
+            break;
+        }
         case 3: //case top10
             system("cls");
             printTop10();
@@ -120,7 +114,7 @@ int main()
 void inputToMenu(int* choice){
     char arrChoice[3]; // string input
     arrChoice[2] = '\0';
-    while((arrChoice[0] = getchar()) == '\n');
+    while((arrChoice[0] = getchar()) == '\n');   //Solves a problem where the program crashes when entering a non-integer
     arrChoice[1] = getchar();
     if(arrChoice[1] == '\n'){
         arrChoice[1] = '\0';
