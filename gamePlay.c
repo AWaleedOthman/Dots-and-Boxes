@@ -255,7 +255,7 @@ int getInput(int* col, int* row){
         }
 	}
 	//end in-game menu
-	if(atoi(cCol) <= 0 || atoi(cCol) >= 9){
+	if(atoi(cCol) <= 0 || atoi(cCol) > 9){
         *col = 0;
         *row = 0;
         while(getchar() != '\n');
@@ -269,7 +269,7 @@ int getInput(int* col, int* row){
 	    *col = 0;
         *row = 0;
         return 0;
-	}else if(atoi(cCol) <= 10 || atoi(cCol) >= 99){
+	}else if(atoi(cCol) < 10 || atoi(cCol) > 99){
         *col = 0;
         *row = 0;
         while(getchar() != '\n');
@@ -286,7 +286,7 @@ int getInput(int* col, int* row){
 	}
 	//reading second number
 	cRow[0] = getchar();
-	if(atoi(cRow) <= 0 || atoi(cRow) >= 9){
+	if(atoi(cRow) <= 0 || atoi(cRow) > 9){
         *col = 0;
         *row = 0;
         if(cRow[0] != '\n'){
@@ -298,7 +298,7 @@ int getInput(int* col, int* row){
 	if(cRow[1] == '\n'){
         cRow[1] = '\0';
         *row = atoi(cRow);
-	}else if(atoi(cRow) <= 10 || atoi(cRow) >= 99){
+	}else if(atoi(cRow) < 10 || atoi(cRow) > 99){
         *col = 0;
         *row = 0;
         while(getchar() != '\n');
