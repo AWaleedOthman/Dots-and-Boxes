@@ -5,15 +5,6 @@
 *Save & Load //Abdelmonem
 
 
-*Undo/Redo //Waleed
-
-
-==========
-
-*Add 'Back to main menu' option in load game menus //Waleed waiting for Save&Load
-
-
-*in-game menu (Exit, Save&Exit, Undo, Redo) //(later)
 
 ==========
 
@@ -21,8 +12,6 @@
 
 ==========
 
-
-
-
-*Chain <--- Later (Ask Eng.)
-*Update UI each minute <--- Later (may need threading)
+*read pdf again
+*load menu in-game
+*load menu in main

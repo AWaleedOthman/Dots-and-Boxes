@@ -1,3 +1,3 @@
-int compSearchNum(char*, int, int*, int *, char);
+int compSearchNum(char*, int, int*, int *, int);
 void compSearchRc(char*, int, int*, int*);
-void compChoose(char*, int, char*, int, int*, int*);
+void compChoose(int*, int, char*, int, int*, int*);

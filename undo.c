@@ -70,7 +70,7 @@ void undoPlay(char* grid, int size, int* undo, int possibleMoves, int* boxes,
     }
 }
 
-int checkBoxAgain(char* boxes, int n, int inputRow, int inputCol, char* grid){
+int checkBoxAgain(int* boxes, int n, int inputRow, int inputCol, char* grid){
     int boxesR, boxesC, score = 0;
     if(inputRow%2 == 1){ //line drawn is horizontal
         boxesR = inputRow/2 - 1;

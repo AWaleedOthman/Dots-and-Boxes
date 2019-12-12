@@ -68,7 +68,7 @@ int main()
             int size = 2*n+1;
             char grid[size][size];
             createGrid(&grid[0][0], size);
-            play(grid, size, comp);
+            play(grid, size, comp, loaded);
             break;
         }// End Case 1
         case 2: //case load game
