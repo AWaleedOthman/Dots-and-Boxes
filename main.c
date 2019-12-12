@@ -4,6 +4,9 @@
 #include "grid.h"
 #include "gamePlay.h"
 #include "rankings.h"
+#include "undo.h"
+#include "computer.h"
+
 
 int main()
 {
@@ -65,17 +68,37 @@ int main()
                 }
             }while(choice == 3);
             if(flag2)break;
-            int size = 2*n+1;
+
+            int size = 2*n+1;////////////////OR load and load comp
             char grid[size][size];
-            createGrid(&grid[0][0], size);
+            createGrid(&grid[0][0], size);//////////////OR load
             play(grid, size, comp, loaded);
+
             break;
         }// End Case 1
         case 2: //case load game
             system("cls");
-            //Write code here
-            while(getchar() != '\n');
-            break;
+            printArt();
+            printf("\n\nPlease choose a game to load:\n");
+            printf("\n1.Game 1\n2.Game 2\n3.Game 3\n4.Back\n");
+            do{
+              inputToMenu(&choice);
+              if(choice==1){
+                loaded = 1;
+                //load game 1
+              }else if(choice==2){
+                loaded = 1;
+                //load game 2
+              }else if(choice==3){
+                loaded = 1;
+                //load game 2
+              }else if(choice==4){
+                break;
+              }else{
+                printf("Invalid, please try again\n");
+              }
+          }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
+          break;
         case 3: //case top10
             system("cls");
             printTop10();
@@ -97,7 +120,7 @@ int main()
 void inputToMenu(int* choice){
     char arrChoice[3]; // string input
     arrChoice[2] = '\0';
-    while((arrChoice[0] = getchar()) == '\n');   //Solves a problem where the program crashes when entering a non-integer
+    while((arrChoice[0] = getchar()) == '\n');
     arrChoice[1] = getchar();
     if(arrChoice[1] == '\n'){
         arrChoice[1] = '\0';

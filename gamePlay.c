@@ -14,18 +14,18 @@ void play(char* grid, int size, int comp, int loaded){
     int flag = 0, lastWasUndoRedo = 0, thisIsUndoRedo = 0;
     int startingTime = time(0);
     int n = (size-1)/2;
-    movesLeft(2*n*(n+1)); //initializes number of moves left till end of game
+    movesLeft(2*n*(n+1)); //initializes number of moves left till end of game////////////////OR load
     int temp = 0; //to store value of input; useful for in-game menu
     int scoreInc; //to store increment of score
     int boxes[n][n]; // array with number of boxes where each cell contains number of sides remaining
     int undo[2*n*(n+1)][3]; //array for undo
     int redo[2*n*(n+1)][3];//for redo
     fillWith0s(&undo[0][0], &redo[0][0], 2*n*(n+1));
-    fillWith4s(&boxes[0][0], n);
-    Player player1 = {0,0};
-    Player player2 = {0,0};
+    fillWith4s(&boxes[0][0], n);//////////////////////OR load
+    Player player1 = {0,0};///////////////////////OR load
+    Player player2 = {0,0};/////////////////////OR load
     int inputRow, inputCol;
-    int turn = 1;
+    int turn = 1;////////////////////////////OR load
     while(movesLeft(0)){
         thisIsUndoRedo = 0;
         flag=1;
@@ -33,8 +33,7 @@ void play(char* grid, int size, int comp, int loaded){
         printBar(turn, player1, player2, startingTime, comp);
         if(comp && turn == 2){// let computer choose
             holdOn();
-            compChoose(&boxes[0][0], n, grid, size, &inputRow, &inputCol);
-            //printf("%d   %d   \n", inputCol, inputRow);
+            compChoose(&boxes[0][0], n, grid, size, &inputRow, &inputCol);/////////////////////////returns invalid
         }else{
             printf("Please choose column then row separated by a comma: ");
             temp = getInput(&inputCol, &inputRow);
@@ -48,6 +47,9 @@ void play(char* grid, int size, int comp, int loaded){
             redoPlay(&inputRow, &inputCol, &redo[0][0], 2*n*(n+1), &turn);
             thisIsUndoRedo = 1;
             lastWasUndoRedo = 1;
+        }else if(temp == 3){
+            //Save//////////////////////////////use inputToMenu() and save() functions
+            return;
         }
 
         while(flag && !drawLine(grid, size, inputRow, inputCol, turn, &undo[0][0], &redo[0][0], turn, lastWasUndoRedo, 2*n*(n+1), thisIsUndoRedo)){
@@ -64,6 +66,9 @@ void play(char* grid, int size, int comp, int loaded){
                 thisIsUndoRedo = 1;
                 lastWasUndoRedo = 1;
                 redoPlay(&inputRow, &inputCol, &redo[0][0], 2*n*(n+1), &turn);
+            }else if(temp == 3){
+                //save//////////////////////////use inputToMenu() and save() functions
+                return;
             }
         }
         if(!flag)continue;
@@ -86,7 +91,6 @@ void play(char* grid, int size, int comp, int loaded){
     }else if(player1.score != player2.score){
         int tempScore = player1.score>player2.score? player1.score:player2.score;
         char tempName[21];
-        int i;
         for(int i = 0; i<20; ++i)tempName[i]='\0';
         printf("\n%sPlayer %d%s has won the game\n",
                player1.score>player2.score? "\033[0;34m":"\033[0;31m",
@@ -235,6 +239,14 @@ int getInput(int* col, int* row){
         }
 	}else if(cCol[0] == 'R'){
         if(getchar()=='\n')return 2;
+        else{
+        *col = 0;
+        *row = 0;
+        while(getchar() != '\n');
+        return 0;
+        }
+	}else if(cCol[0] == 'S'){
+        if(getchar()=='\n')return 3;
         else{
         *col = 0;
         *row = 0;

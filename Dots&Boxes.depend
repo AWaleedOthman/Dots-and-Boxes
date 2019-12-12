@@ -1,11 +1,13 @@
 # depslib dependency file v1.0
-1576134331 source:d:\uni\term3\programming\dots&boxes\main.c
+1576167828 source:d:\uni\term3\programming\dots&boxes\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	"grid.h"
 	"gamePlay.h"
 	"rankings.h"
+	"undo.h"
+	"computer.h"
 
 1576127651 d:\uni\term3\programming\dots&boxes\grid.h
 
@@ -13,7 +15,7 @@
 
 1576141200 d:\uni\term3\programming\dots&boxes\gameplay.h
 
-1576141200 source:d:\uni\term3\programming\dots&boxes\gameplay.c
+1576167988 source:d:\uni\term3\programming\dots&boxes\gameplay.c
 	<stdio.h>
 	<windows.h>
 	<unistd.h>
@@ -27,4 +29,8 @@
 1576141320 source:d:\uni\term3\programming\dots&boxes\undo.c
 
 1576142600 source:d:\uni\term3\programming\dots&boxes\computer.c
+
+1576142754 d:\uni\term3\programming\dots&boxes\computer.h
+
+1576167847 d:\uni\term3\programming\dots&boxes\undo.h
 
