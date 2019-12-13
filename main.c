@@ -6,7 +6,7 @@
 #include "rankings.h"
 #include "undo.h"
 #include "computer.h"
-
+#include "save.h"
 
 int main()
 {
@@ -69,7 +69,7 @@ int main()
             }while(choice == 3);
             if(flag2)break;
 
-            int size = 2*n+1;////////////////OR load and load comp
+            int size = 2*n+1;////////////////OR load and load comp.... loadComp may be here or may be with loadData
             char grid[size][size];
             createGrid(&grid[0][0], size);//////////////OR load
             play(grid, size, comp, loaded);
@@ -85,7 +85,7 @@ int main()
               inputToMenu(&choice);
               if(choice==1){
                 loaded = 1;
-                //load game 1
+                //load game 1 will use loadGrid but still need to load n in order to create grid first.
               }else if(choice==2){
                 loaded = 1;
                 //load game 2

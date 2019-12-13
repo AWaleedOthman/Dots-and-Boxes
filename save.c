@@ -32,12 +32,12 @@ void saveBoxes(int* boxes, int n,int fileNumber){//saves n ,boxes
     }
     fclose(savebox);
 }
-void saveData(int score1,int turn1,int score2,int turn2,int turn, int fileNumber){ // saves data
+void saveData(int score1,int turnsPlayed1,int score2,int turnsPlayed2,int turn, int fileNumber){ // saves data
     FILE *save;
     char saved[20];
     fileName(fileNumber,saved);
     save = fopen(saved,"a");
-    fprintf(save,"*%d*%d*%d*%d*%d",turn,turn1,score1,turn2,score2);
+    fprintf(save,"*%d*%d*%d*%d*%d",turn,turnsPlayed1,score1,turnsPlayed2,score2);
     fclose(save);
 }
 void loadGrid(char* grid, int size, int fileNumber){ //load grid
@@ -77,7 +77,7 @@ void loadBoxes(int* boxes, int n,int fileNumber){ //loads n , boxes moves
     }
     fclose(load);
 }
-void loadData(int* turn, int* turn1, int* score1, int* turn2, int* score2,int fileNumber){ //load rest of data
+void loadData(int* turn, int* turnsPlayed1, int* score1, int* turnsPlayed2, int* score2,int fileNumber){ //load rest of data
     char ch;
     char loaded[20];
     FILE *load;
@@ -93,7 +93,7 @@ void loadData(int* turn, int* turn1, int* score1, int* turn2, int* score2,int fi
     while(!feof(load)){
         ch = fgetc(load);
         if(ch == '*'){
-            fscanf(load,"%d",turn1);
+            fscanf(load,"%d",turnsPlayed1);
             break;
         }
     }
@@ -107,7 +107,7 @@ void loadData(int* turn, int* turn1, int* score1, int* turn2, int* score2,int fi
     while(!feof(load)){
         ch = fgetc(load);
         if(ch == '*'){
-            fscanf(load,"%d",turn2);
+            fscanf(load,"%d",turnsPlayed2);
             break;
         }
     }

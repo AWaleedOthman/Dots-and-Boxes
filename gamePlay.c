@@ -21,11 +21,15 @@ void play(char* grid, int size, int comp, int loaded){
     int undo[2*n*(n+1)][3]; //array for undo
     int redo[2*n*(n+1)][3];//for redo
     fillWith0s(&undo[0][0], &redo[0][0], 2*n*(n+1));
-    fillWith4s(&boxes[0][0], n);//////////////////////OR load
-    Player player1 = {0,0};///////////////////////OR load
-    Player player2 = {0,0};/////////////////////OR load
+    fillWith4s(&boxes[0][0], n);
+    Player player1 = {0,0};
+    Player player2 = {0,0};
     int inputRow, inputCol;
-    int turn = 1;////////////////////////////OR load
+    int turn = 1;
+    if(loaded){
+        loadBoxes(&boxes[0][0], n, loaded);
+        loadData(&turn, &player1.turnsPlayed, &player1.score, &player2.turnsPlayed, &player2.score, loaded);
+    }
     while(movesLeft(0)){
         thisIsUndoRedo = 0;
         flag=1;
@@ -48,7 +52,13 @@ void play(char* grid, int size, int comp, int loaded){
             thisIsUndoRedo = 1;
             lastWasUndoRedo = 1;
         }else if(temp == 3){
-            //Save//////////////////////////////use inputToMenu() and save() functions
+            do{
+                printf("Please choose saved games 1, 2 or 3 to overwrite: ");
+                inputToMenu(&temp);
+            }while(temp!=1 && temp!=2 && temp!=3);
+            saveGrid(grid, size, comp, movesLeft(0), temp);
+            saveBoxes(boxes, n, temp);
+            saveData(player1.score, player1.turnsPlayed, player2.score, player2.turnsPlayed, turn, temp);
             return;
         }
 
@@ -67,9 +77,15 @@ void play(char* grid, int size, int comp, int loaded){
                 lastWasUndoRedo = 1;
                 redoPlay(&inputRow, &inputCol, &redo[0][0], 2*n*(n+1), &turn);
             }else if(temp == 3){
-                //save//////////////////////////use inputToMenu() and save() functions
+                   do{
+                    printf("Please choose saved games 1, 2 or 3 to overwrite: ");
+                    inputToMenu(&temp);
+                }while(temp!=1 && temp!=2 && temp!=3);
+                saveGrid(grid, size, comp, movesLeft(0), temp);
+                saveBoxes(boxes, n, temp);
+                saveData(player1.score, player1.turnsPlayed, player2.score, player2.turnsPlayed, turn, temp);
                 return;
-            }
+                }
         }
         if(!flag)continue;
         if(!thisIsUndoRedo){lastWasUndoRedo = 0;}
