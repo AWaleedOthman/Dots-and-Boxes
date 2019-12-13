@@ -10,11 +10,16 @@ typedef struct{ // structure containing both players
     int score;
     }Player;
 
-void play(char* grid, int size, int comp, int loaded){
+void play(char* grid, int size, int comp, int loaded, int loadedMoves, int fileNumber){
     int flag = 0, lastWasUndoRedo = 0, thisIsUndoRedo = 0;
     int startingTime = time(0);
     int n = (size-1)/2;
-    movesLeft(2*n*(n+1)); //initializes number of moves left till end of game////////////////OR load
+    if(loaded == 1){
+        movesLeft(loadedMoves);
+    }
+    else{
+        movesLeft(2*n*(n+1)); //initializes number of moves left till end of game////////////////OR load
+    }
     int temp = 0; //to store value of input; useful for in-game menu
     int scoreInc; //to store increment of score
     int boxes[n][n]; // array with number of boxes where each cell contains number of sides remaining
@@ -27,8 +32,8 @@ void play(char* grid, int size, int comp, int loaded){
     int inputRow, inputCol;
     int turn = 1;
     if(loaded){
-        loadBoxes(&boxes[0][0], n, loaded);
-        loadData(&turn, &player1.turnsPlayed, &player1.score, &player2.turnsPlayed, &player2.score, loaded);
+        loadBoxes(&boxes[0][0], n, fileNumber);
+        loadData(&turn, &player1.turnsPlayed, &player1.score, &player2.turnsPlayed, &player2.score, fileNumber);
     }
     while(movesLeft(0)){
         thisIsUndoRedo = 0;
@@ -56,8 +61,8 @@ void play(char* grid, int size, int comp, int loaded){
                 printf("Please choose saved games 1, 2 or 3 to overwrite: ");
                 inputToMenu(&temp);
             }while(temp!=1 && temp!=2 && temp!=3);
-            saveGrid(grid, size, comp, movesLeft(0), temp);
             saveBoxes(boxes, n, temp);
+            saveGrid(grid, size, comp, movesLeft(0), temp);
             saveData(player1.score, player1.turnsPlayed, player2.score, player2.turnsPlayed, turn, temp);
             return;
         }
@@ -81,8 +86,8 @@ void play(char* grid, int size, int comp, int loaded){
                     printf("Please choose saved games 1, 2 or 3 to overwrite: ");
                     inputToMenu(&temp);
                 }while(temp!=1 && temp!=2 && temp!=3);
-                saveGrid(grid, size, comp, movesLeft(0), temp);
                 saveBoxes(boxes, n, temp);
+                saveGrid(grid, size, comp, movesLeft(0), temp);
                 saveData(player1.score, player1.turnsPlayed, player2.score, player2.turnsPlayed, turn, temp);
                 return;
                 }

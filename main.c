@@ -11,6 +11,7 @@
 int main()
 {
     int choice, n, comp, loaded;
+    int loadedMoves = 0;
     int flag1 = 1; //to loop until user exits game
     int flag2 = 0; //for when the user chooses back option
     do{
@@ -72,7 +73,7 @@ int main()
             int size = 2*n+1;////////////////OR load and load comp.... loadComp may be here or may be with loadData
             char grid[size][size];
             createGrid(&grid[0][0], size);//////////////OR load
-            play(grid, size, comp, loaded);
+            play(grid, size, comp, loaded, loadedMoves, 0);
 
             break;
         }// End Case 1
@@ -85,13 +86,25 @@ int main()
               inputToMenu(&choice);
               if(choice==1){
                 loaded = 1;
-                //load game 1 will use loadGrid but still need to load n in order to create grid first.
+                loadInitial(&n,&comp,&loadedMoves,choice);
+                int size = 2*n+1;
+                char grid[size][size];
+                loadGrid(grid,size,choice);
+                play(grid,size,comp,loaded,loadedMoves,choice);
               }else if(choice==2){
                 loaded = 1;
-                //load game 2
+                loadInitial(&n,&comp,&loadedMoves,choice);
+                int size = 2*n+1;
+                char grid[size][size];
+                loadGrid(grid,size,choice);
+                play(grid,size,comp,loaded,loadedMoves,choice);
               }else if(choice==3){
                 loaded = 1;
-                //load game 2
+                loadInitial(&n,&comp,&loadedMoves,choice);
+                int size = 2*n+1;
+                char grid[size][size];
+                loadGrid(grid,size,choice);
+                play(grid,size,comp,loaded,loadedMoves,choice);
               }else if(choice==4){
                 break;
               }else{

@@ -40,6 +40,19 @@ void saveData(int score1,int turnsPlayed1,int score2,int turnsPlayed2,int turn, 
     fprintf(save,"*%d*%d*%d*%d*%d",turn,turnsPlayed1,score1,turnsPlayed2,score2);
     fclose(save);
 }
+void loadInitial(int* n, int* comp, int* loadedMoves, int fileNumber){ //loads initial data n,comp,moves
+    FILE *load;
+    char loaded[20];
+    fileName(fileNumber,loaded);
+    load = fopen(loaded,"r");
+    fscanf(load,"%1d",n);
+    int start = *n;
+    start = start*start+1;
+    fseek(load,start,SEEK_SET);
+    fscanf(load,"%1d",comp);
+    fscanf(load,"%d",loadedMoves);
+    fclose(load);
+}
 void loadGrid(char* grid, int size, int fileNumber){ //load grid
     int n = (size-1)/2;
     int startRead = n*n+3;
@@ -62,7 +75,7 @@ void loadGrid(char* grid, int size, int fileNumber){ //load grid
     }
     fclose(load);
 }
-void loadBoxes(int* boxes, int n,int fileNumber){ //loads n , boxes moves
+void loadBoxes(int* boxes, int n,int fileNumber){ // boxes moves
     int fillW4;
     char loaded[20];
     FILE *load;
@@ -77,7 +90,7 @@ void loadBoxes(int* boxes, int n,int fileNumber){ //loads n , boxes moves
     }
     fclose(load);
 }
-void loadData(int* turn, int* turnsPlayed1, int* score1, int* turnsPlayed2, int* score2,int fileNumber){ //load rest of data
+void loadData(int* turn, int* turnsPlayed1, int* score1, int* turnsPlayed2, int* score2,int fileNumber){ //load rest of data whose turn,player1/2 turn &score
     char ch;
     char loaded[20];
     FILE *load;
