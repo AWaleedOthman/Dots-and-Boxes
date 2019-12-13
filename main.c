@@ -8,6 +8,8 @@
 #include "computer.h"
 #include "save.h"
 
+void inputToMenu(int*, int);
+
 int main()
 {
     int choice, n, comp, loaded;
@@ -19,12 +21,13 @@ int main()
         readTop10();
         system("cls");
         printArt();
-        printf("\n\nMAIN MENU:  (please choose one of the following)\n\n");
-        printf("1.Start Game\n2.Load Game\n3.Top 10\n4.How To Play\n5.Exit\n");
-        inputToMenu(&choice);
+        printf("\n\n     MAIN MENU:  (please choose one of the following)\n\n");
+        printf("     1.Start Game\n     2.Load Game\n     3.Top 10\n"
+               "     4.How To Play\n     5.Exit\n");
+        inputToMenu(&choice,0);
         while(choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5){
-            printf("Invalid, please try again\n");
-            inputToMenu(&choice);
+            printf("     Invalid, please try again\n");
+            inputToMenu(&choice,0);
         }
         switch(choice){
         case 1:
@@ -33,12 +36,12 @@ int main()
             do{
                 system("cls");
                 printArt();
-                printf("\n\nPlease choose one of the following:\n");
-                printf("\n1.Beginner (3*3)\n2.Expert (5*5)\n3.Custom\n4.Back\n");
-                inputToMenu(&choice);
+                printf("\n\n     Please choose one of the following:\n");
+                printf("\n     1.Beginner (3*3)\n     2.Expert (5*5)\n     3.Custom\n     4.Back\n");
+                inputToMenu(&choice,0);
                 while(choice != 1 && choice != 2 && choice != 3 && choice != 4){
-                    printf("Invalid, please try again\n");
-                    inputToMenu(&choice);
+                    printf("     Invalid, please try again\n");
+                    inputToMenu(&choice,0);
                 }
                 if(choice == 1){ //beginner
                     n = 2;
@@ -48,21 +51,21 @@ int main()
                     flag2 = 1;
                     break;
                 }else{
-                    printf("Please enter desired number of boxes (between 1 & 9): ");
-                    inputToMenu(&n);
+                    printf("     Please enter desired number of boxes (between 1 & 9): ");
+                    inputToMenu(&n,1);
                     while(n<1 || n>9){
-                        printf("Invalid, please try again\n");
-                        inputToMenu(&n);
+                        printf("     Invalid, please try again\n");
+                        inputToMenu(&n,0);
                     }
                 }
                 system("cls");
                 printArt();
-                printf("\n\nPlease choose one of the following:\n");
-                printf("\n1.One Player\n2.Two Players\n3.Back\n");
-                inputToMenu(&choice);
+                printf("\n\n     Please choose one of the following:\n");
+                printf("\n     1.One Player\n     2.Two Players\n     3.Back\n");
+                inputToMenu(&choice,0);
                 while(choice != 1 && choice != 2 && choice != 3){
-                    printf("Invalid, please try again\n");
-                    inputToMenu(&choice);
+                    printf("     Invalid, please try again\n");
+                    inputToMenu(&choice,0);
                 }
                 if(choice == 1){
                     comp = 1;
@@ -80,10 +83,10 @@ int main()
         case 2: //case load game
             system("cls");
             printArt();
-            printf("\n\nPlease choose a game to load:\n");
-            printf("\n1.Game 1\n2.Game 2\n3.Game 3\n4.Back\n");
+            printf("\n\n     Please choose a game to load:\n");
+            printf("\n     1.Game 1\n     2.Game 2\n     3.Game 3\n     4.Back\n");
             do{
-              inputToMenu(&choice);
+              inputToMenu(&choice,0);
               if(choice==1){
                 loaded = choice;
                 loadInitial(&n,&comp,&loadedMoves,choice);
@@ -108,7 +111,7 @@ int main()
               }else if(choice==4){
                 break;
               }else{
-                printf("Invalid, please try again\n");
+                printf("     Invalid, please try again\n");
               }
           }while(choice != 1 && choice != 2 && choice != 3 && choice != 4);
           break;
@@ -130,7 +133,9 @@ int main()
     return 0;
 }
 
-void inputToMenu(int* choice){
+void inputToMenu(int* choice, int myBool){
+    if(!myBool)
+        printf("     ");
     char arrChoice[3]; // string input
     arrChoice[2] = '\0';
     while((arrChoice[0] = getchar()) == '\n');
