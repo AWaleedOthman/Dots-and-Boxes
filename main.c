@@ -70,9 +70,9 @@ int main()
             }while(choice == 3);
             if(flag2)break;
 
-            int size = 2*n+1;////////////////OR load and load comp.... loadComp may be here or may be with loadData
+            int size = 2*n+1;
             char grid[size][size];
-            createGrid(&grid[0][0], size);//////////////OR load
+            createGrid(&grid[0][0], size);
             play(grid, size, comp, loaded, loadedMoves);
 
             break;

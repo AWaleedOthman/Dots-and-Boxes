@@ -6,6 +6,6 @@ placeholder4 7
 placeholder5 5
 placeholder6 3
 placeholder7 4
+3aashYaReggala 3
 placeholder8 2
 testName 1
-placeholder9 0

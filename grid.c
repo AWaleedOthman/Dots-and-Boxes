@@ -147,3 +147,14 @@ void printArt(){
          "           | |_| | (_) | |_\\__ \\ | (_>  < | |_) | (_) >  <  __/\\__ \\ \n"
          "           |____/ \\___/ \\__|___/  \\___/\\/ |____/ \\___/_/\\_\\___||___/ \n");
 }
+
+int drawLineHowTo(char* grid, int size, int inputRow, int inputCol, int turn){
+    int n = (size-1)/2;
+    if((inputRow+inputCol)%2 != 0 && *((grid + (inputRow-1)*size)+(inputCol-1)) == ' ' && inputRow<=size && inputCol<=size){
+        *((grid + (inputRow-1)*size)+(inputCol-1)) = turn + '0';
+        movesLeft(-1);
+        return 1;
+    }else{
+        return 0;
+    }
+}

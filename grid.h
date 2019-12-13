@@ -3,3 +3,4 @@ void printGrid(char*, int);
 int drawLine(char*, int, int, int, int, int*, int*, int, int, int, int);
 void assignBox(char*, int, int, int, int);
 void printArt();
+int drawLineHowTo(char*, int, int, int, int);

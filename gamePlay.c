@@ -130,14 +130,14 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
 
 //The following function returns moves left after:
 //deducting one if input is -1
-//increasing one if input is 1
+//increasing one if input is -2
 //assigning the input to be the moves left
 //doing nothing on number of moves left if input is 0
 int movesLeft(int moves){
     static int movesLeft;
     if(moves == -1){
         --movesLeft;
-    }else if(moves == 1){
+    }else if(moves == -2){
      ++movesLeft;
     }else if(moves != 0){
         movesLeft = moves;
@@ -228,7 +228,7 @@ void printBar(int turn, Player player1, Player player2, int startingTime, int co
     printf("\033[0;31m");
     printf("\n%s:     played %d turns     Score = %d\n\n", comp? "Computer":"Player 2", player2.turnsPlayed, player2.score);
     printf("\033[0m");
-    printf("%sU%s: undo   %sR%s: redo   %sS%s: save   %sE%s: exit to main menu\n\n",s1,s2,s1,s2,s1,s2,s1,s2);
+    printf("%sU%s: undo   %sR%s: redo   %sS%s: save and exit   %sE%s: exit to main menu\n\n",s1,s2,s1,s2,s1,s2,s1,s2);
 }
 
 //This function is for protecting program against malicious user's input
@@ -364,7 +364,7 @@ void howTo(){
         inputRow = 2;
         printf("%d", inputRow);
         holdOn();
-        drawLine(grid, size, inputRow, inputCol, turn);
+        drawLineHowTo(grid, size, inputRow, inputCol, turn);
         ++player1.turnsPlayed;
         //Second Move
         turn = 2;
@@ -380,7 +380,7 @@ void howTo(){
         inputRow = 3;
         printf("%d", inputRow);
         holdOn();
-        drawLine(grid, size, inputRow, inputCol, turn);
+        drawLineHowTo(grid, size, inputRow, inputCol, turn);
         ++player2.turnsPlayed;
         //Third Move
         turn = 1;
@@ -396,7 +396,7 @@ void howTo(){
         inputRow = 2;
         printf("%d", inputRow);
         holdOn();
-        drawLine(grid, size, inputRow, inputCol, turn);
+        drawLineHowTo(grid, size, inputRow, inputCol, turn);
         ++player1.turnsPlayed;
         //Last Move
         turn = 2;
@@ -412,7 +412,7 @@ void howTo(){
         inputRow = 1;
         printf("%d", inputRow);
         holdOn();
-        drawLine(grid, size, inputRow, inputCol, turn);
+        drawLineHowTo(grid, size, inputRow, inputCol, turn);
         ++player2.turnsPlayed;
         ++player2.score;
         assignBox(&grid[0][0], 3, 2, 2, 2);

@@ -38,7 +38,7 @@ void addRedo(int* redo, int inputRow, int inputCol, int turn){
 
 void deleteLine(char* grid, int size, int inputRow, int inputCol){
     *((grid + (inputRow-1)*size)+(inputCol-1)) = ' ';
-    movesLeft(1);
+    movesLeft(-2);
 }
 
 void undoPlay(char* grid, int size, int* undo, int possibleMoves, int* boxes,
