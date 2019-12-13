@@ -41,8 +41,9 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
         printGrid(grid, size);
         printBar(turn, player1, player2, startingTime, comp);
         if(comp && turn == 2){// let computer choose
-            holdOn();
-            compChoose(&boxes[0][0], n, grid, size, &inputRow, &inputCol);/////////////////////////returns invalid
+            if(temp!=1)
+                holdOn();
+            compChoose(&boxes[0][0], n, grid, size, &inputRow, &inputCol);
         }else{
             printf("Please choose column then row separated by a comma: ");
             temp = getInput(&inputCol, &inputRow);
