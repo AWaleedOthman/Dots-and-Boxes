@@ -5,3 +5,4 @@ void loadGrid(char* , int ,int);
 void loadBoxes(int* , int, int);
 void loadData(int* , int* , int* , int* , int* ,int );
 void fileName(int , char []);
+void loadInitial(int* , int* , int* , int );
