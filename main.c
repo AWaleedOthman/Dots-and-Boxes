@@ -138,7 +138,7 @@ void inputToMenu(int* choice, int myBool){
         printf("     ");
     char arrChoice[3]; // string input
     arrChoice[2] = '\0';
-    while((arrChoice[0] = getchar()) == '\n');
+    while((arrChoice[0] = getchar()) == '\n')printf("     ");
     arrChoice[1] = getchar();
     if(arrChoice[1] == '\n'){
         arrChoice[1] = '\0';
