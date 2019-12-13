@@ -10,11 +10,11 @@ typedef struct{ // structure containing both players
     int score;
     }Player;
 
-void play(char* grid, int size, int comp, int loaded, int loadedMoves, int fileNumber){
+void play(char* grid, int size, int comp, int loaded, int loadedMoves){
     int flag = 0, lastWasUndoRedo = 0, thisIsUndoRedo = 0;
     int startingTime = time(0);
     int n = (size-1)/2;
-    if(loaded == 1){
+    if(loaded == 1 || loaded == 2 || loaded == 3){
         movesLeft(loadedMoves);
     }
     else{
@@ -31,9 +31,9 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves, int fileN
     Player player2 = {0,0};
     int inputRow, inputCol;
     int turn = 1;
-    if(loaded){
-        loadBoxes(&boxes[0][0], n, fileNumber);
-        loadData(&turn, &player1.turnsPlayed, &player1.score, &player2.turnsPlayed, &player2.score, fileNumber);
+    if(loaded == 1 || loaded == 2 || loaded == 3){
+        loadBoxes(&boxes[0][0], n, loaded);
+        loadData(&turn, &player1.turnsPlayed, &player1.score, &player2.turnsPlayed, &player2.score, loaded);
     }
     while(movesLeft(0)){
         thisIsUndoRedo = 0;

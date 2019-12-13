@@ -73,7 +73,7 @@ int main()
             int size = 2*n+1;////////////////OR load and load comp.... loadComp may be here or may be with loadData
             char grid[size][size];
             createGrid(&grid[0][0], size);//////////////OR load
-            play(grid, size, comp, loaded, loadedMoves, 0);
+            play(grid, size, comp, loaded, loadedMoves);
 
             break;
         }// End Case 1
@@ -85,26 +85,26 @@ int main()
             do{
               inputToMenu(&choice);
               if(choice==1){
-                loaded = 1;
+                loaded = choice;
                 loadInitial(&n,&comp,&loadedMoves,choice);
                 int size = 2*n+1;
                 char grid[size][size];
                 loadGrid(grid,size,choice);
-                play(grid,size,comp,loaded,loadedMoves,choice);
+                play(grid,size,comp,loaded,loadedMoves);
               }else if(choice==2){
-                loaded = 1;
+                loaded = choice;
                 loadInitial(&n,&comp,&loadedMoves,choice);
                 int size = 2*n+1;
                 char grid[size][size];
                 loadGrid(grid,size,choice);
-                play(grid,size,comp,loaded,loadedMoves,choice);
+                play(grid,size,comp,loaded,loadedMoves);
               }else if(choice==3){
-                loaded = 1;
+                loaded = choice;
                 loadInitial(&n,&comp,&loadedMoves,choice);
                 int size = 2*n+1;
                 char grid[size][size];
                 loadGrid(grid,size,choice);
-                play(grid,size,comp,loaded,loadedMoves,choice);
+                play(grid,size,comp,loaded,loadedMoves);
               }else if(choice==4){
                 break;
               }else{
