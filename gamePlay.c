@@ -243,7 +243,7 @@ int getInput(int* col, int* row){
 	char temp;
 	while((cCol[0] = getchar()) == '\n');
 	//for in-game menu
-	if(cCol[0] == 'E'){
+	if(cCol[0] == 'E' || cCol[0] == 'e'){
         if(getchar()=='\n')return 4;
         else{
         *col = 0;
@@ -251,7 +251,7 @@ int getInput(int* col, int* row){
         while(getchar() != '\n');
         return 0;
         }
-	}else if(cCol[0] == 'U'){
+	}else if(cCol[0] == 'U' || cCol[0] == 'u'){
         if(getchar()=='\n')return 1;
         else{
         *col = 0;
@@ -259,7 +259,7 @@ int getInput(int* col, int* row){
         while(getchar() != '\n');
         return 0;
         }
-	}else if(cCol[0] == 'R'){
+	}else if(cCol[0] == 'R' || cCol[0] == 'r'){
         if(getchar()=='\n')return 2;
         else{
         *col = 0;
@@ -267,7 +267,7 @@ int getInput(int* col, int* row){
         while(getchar() != '\n');
         return 0;
         }
-	}else if(cCol[0] == 'S'){
+	}else if(cCol[0] == 'S' || cCol[0] == 's'){
         if(getchar()=='\n')return 3;
         else{
         *col = 0;
