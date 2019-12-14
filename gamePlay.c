@@ -5,10 +5,37 @@
 #include <unistd.h>
 #endif // _WIN32
 #include "rankings.h"
+#include <pthread.h>
 typedef struct{ // structure containing both players
     int turnsPlayed;
     int score;
     }Player;
+
+typedef struct{
+    char* grid;
+    int* size;
+    int* turn;
+    Player* player1;
+    Player* player2;
+    int* startingTime;
+    int* comp;
+}AUX;
+
+void* updateTime(void*p){
+    pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    int AuxStartingTime = time(0);
+    AUX* myAux = (AUX*)p;
+    Player* player1 = (*myAux).player1;
+    Player* player2 = (*myAux).player2;
+    while(1){
+        if(time(0)-AuxStartingTime >= 60){
+            AuxStartingTime = time(0);
+            printGrid((*myAux).grid, *(*myAux).size);
+            printBar(*(*myAux).turn, *player1, *player2, *(*myAux).startingTime, *(*myAux).comp);
+            printf("Please choose column then row separated by a comma: ");
+        }
+    }
+}
 
 void play(char* grid, int size, int comp, int loaded, int loadedMoves){
     int flag = 0, lastWasUndoRedo = 0, thisIsUndoRedo = 0;
@@ -35,6 +62,11 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
         loadBoxes(&boxes[0][0], n, loaded);
         loadData(&turn, &player1.turnsPlayed, &player1.score, &player2.turnsPlayed, &player2.score, loaded);
     }
+    //for multi-threading
+    AUX myAux = {grid, &size, &turn, &player1, &player2, &startingTime, &comp};
+    pthread_t myThread;
+    pthread_create(&myThread, NULL, updateTime,&myAux);
+    //
     while(movesLeft(0)){
         thisIsUndoRedo = 0;
         flag=1;
@@ -43,12 +75,15 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
         if(comp && turn == 2){// let computer choose
             if(temp!=1)
                 holdOn();
-            compChoose(&boxes[0][0], n, grid, size, &inputRow, &inputCol);
+                compChoose(&boxes[0][0], n, grid, size, &inputRow, &inputCol);
         }else{
             printf("Please choose column then row separated by a comma: ");
             temp = getInput(&inputCol, &inputRow);
         }
-        if(temp == 4)return;
+        if(temp == 4){
+            pthread_cancel(myThread);
+            return;
+        }
         else if(temp == 1){ //Undo
             undoPlay(grid, size, &undo[0][0], 2*n*(n+1), boxes, &turn, &player1, &player2, &redo[0][0]);
             lastWasUndoRedo = 1;
@@ -58,6 +93,7 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
             thisIsUndoRedo = 1;
             lastWasUndoRedo = 1;
         }else if(temp == 3){
+            pthread_cancel(myThread);
             do{
                 printf("Please choose saved games 1, 2 or 3 to overwrite: ");
                 inputToMenu(&temp);
@@ -73,7 +109,10 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
             printf("Invalid\n");
             printf("Please choose column then row separated by a comma: ");
             temp = getInput(&inputCol, &inputRow);
-            if(temp == 4)return;
+            if(temp == 4){
+                pthread_cancel(myThread);
+                return;
+            }
             else if(temp == 1){ //Undo
                 undoPlay(grid, size, &undo[0][0], 2*n*(n+1), boxes, &turn, &player1, &player2, &redo[0][0]);
                 flag=0;
@@ -83,7 +122,8 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
                 lastWasUndoRedo = 1;
                 redoPlay(&inputRow, &inputCol, &redo[0][0], 2*n*(n+1), &turn);
             }else if(temp == 3){
-                   do{
+                pthread_cancel(myThread);
+                do{
                     printf("Please choose saved games 1, 2 or 3 to overwrite: ");
                     inputToMenu(&temp);
                 }while(temp!=1 && temp!=2 && temp!=3);
@@ -107,6 +147,7 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
     }
     printGrid(grid, size);
     printBar(turn, player1, player2, startingTime, comp);
+    pthread_cancel(myThread);
     if(comp && player2.score>player1.score){
         printf("\n%sComputer%s has won the game\n", "\033[0;31m", "\033[0m");
         printf("Press Enter to return to main menu\n");

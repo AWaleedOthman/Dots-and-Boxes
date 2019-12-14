@@ -16,11 +16,12 @@
 
 1576333555 d:\uni\term3\programming\dots&boxes\gameplay.h
 
-1576352246 source:d:\uni\term3\programming\dots&boxes\gameplay.c
+1576353799 source:d:\uni\term3\programming\dots&boxes\gameplay.c
 	<stdio.h>
 	<windows.h>
 	<unistd.h>
 	"rankings.h"
+	<pthread.h>
 
 1576352422 source:d:\uni\term3\programming\dots&boxes\rankings.c
 	<stdio.h>
