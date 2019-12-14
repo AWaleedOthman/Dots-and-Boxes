@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1576324981 source:d:\uni\term3\programming\dots&boxes\main.c
+1576352035 source:d:\uni\term3\programming\dots&boxes\main.c
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
@@ -10,34 +10,34 @@
 	"computer.h"
 	"save.h"
 
-1576245351 d:\uni\term3\programming\dots&boxes\grid.h
+1576333555 d:\uni\term3\programming\dots&boxes\grid.h
 
-1576324988 source:d:\uni\term3\programming\dots&boxes\grid.c
+1576333555 source:d:\uni\term3\programming\dots&boxes\grid.c
 
-1576244691 d:\uni\term3\programming\dots&boxes\gameplay.h
+1576333555 d:\uni\term3\programming\dots&boxes\gameplay.h
 
-1576247461 source:d:\uni\term3\programming\dots&boxes\gameplay.c
+1576352246 source:d:\uni\term3\programming\dots&boxes\gameplay.c
 	<stdio.h>
 	<windows.h>
 	<unistd.h>
 	"rankings.h"
 
-1575756815 source:d:\uni\term3\programming\dots&boxes\rankings.c
+1576352422 source:d:\uni\term3\programming\dots&boxes\rankings.c
 	<stdio.h>
 
-1575754720 d:\uni\term3\programming\dots&boxes\rankings.h
+1576333555 d:\uni\term3\programming\dots&boxes\rankings.h
 
-1576246378 source:d:\uni\term3\programming\dots&boxes\undo.c
+1576333555 source:d:\uni\term3\programming\dots&boxes\undo.c
 
-1576142600 source:d:\uni\term3\programming\dots&boxes\computer.c
+1576333555 source:d:\uni\term3\programming\dots&boxes\computer.c
 
-1576142754 d:\uni\term3\programming\dots&boxes\computer.h
+1576333555 d:\uni\term3\programming\dots&boxes\computer.h
 
-1576167847 d:\uni\term3\programming\dots&boxes\undo.h
+1576333555 d:\uni\term3\programming\dots&boxes\undo.h
 
-1576244691 d:\uni\term3\programming\dots&boxes\save.h
+1576333555 d:\uni\term3\programming\dots&boxes\save.h
 
-1576244691 source:d:\uni\term3\programming\dots&boxes\save.c
+1576333555 source:d:\uni\term3\programming\dots&boxes\save.c
 	<stdio.h>
 	<ctype.h>
 	<string.h>

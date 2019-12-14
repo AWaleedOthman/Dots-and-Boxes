@@ -121,6 +121,10 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
                 printf("\nNew High Score!\nPlease enter username (20 character max. without spaces): ");
                 getName(tempName);
                 updateTop10(tempName, tempScore);
+                system("cls");
+                printTop10();
+                printf("\n\nPress Enter to return to main menu\n");
+                while(getchar() != '\n');
                }
     }else{
         printf("\nIt's a tie!\n");

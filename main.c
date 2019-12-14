@@ -37,7 +37,7 @@ int main()
                 system("cls");
                 printArt();
                 printf("\n\nPlease choose one of the following:\n");
-                printf("\n1.Beginner (3*3)\n2.Expert (5*5)\n3.Custom\n4.Back\n");
+                printf("\n1.Beginner (2*2)\n2.Expert (5*5)\n3.Custom\n4.Back\n");
                 inputToMenu(&choice);
                 while(choice != 1 && choice != 2 && choice != 3 && choice != 4){
                     printf("Invalid, please try again\n");

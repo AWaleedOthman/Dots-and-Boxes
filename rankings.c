@@ -17,6 +17,7 @@ void readTop10(){
 
 void printTop10(){
     printArt();
+    printf("\n         TOP 10\n         ======\n");
     for(int i = 0; i<10; ++i){
         printf("\n%2d.%-22s%d", i+1, top10[i].name, top10[i].score);
     }
