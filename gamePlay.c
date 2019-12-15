@@ -33,6 +33,8 @@ void* updateTime(void*p){
             printGrid((*myAux).grid, *(*myAux).size);
             printBar(*(*myAux).turn, *player1, *player2, *(*myAux).startingTime, *(*myAux).comp);
             printf("Please choose column then row separated by a comma: ");
+        }else{
+            holdOn();
         }
     }
 }
@@ -65,7 +67,6 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
     //for multi-threading
     AUX myAux = {grid, &size, &turn, &player1, &player2, &startingTime, &comp};
     pthread_t myThread;
-    pthread_create(&myThread, NULL, updateTime,&myAux);
     //
     while(movesLeft(0)){
         thisIsUndoRedo = 0;
@@ -78,10 +79,11 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
                 compChoose(&boxes[0][0], n, grid, size, &inputRow, &inputCol);
         }else{
             printf("Please choose column then row separated by a comma: ");
+            pthread_create(&myThread, NULL, updateTime,&myAux);
             temp = getInput(&inputCol, &inputRow);
+            pthread_cancel(myThread);
         }
         if(temp == 4){
-            pthread_cancel(myThread);
             return;
         }
         else if(temp == 1){ //Undo
@@ -93,7 +95,6 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
             thisIsUndoRedo = 1;
             lastWasUndoRedo = 1;
         }else if(temp == 3){
-            pthread_cancel(myThread);
             do{
                 printf("Please choose saved games 1, 2 or 3 to overwrite: ");
                 inputToMenu(&temp);
@@ -108,9 +109,10 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
             thisIsUndoRedo = 0;
             printf("Invalid\n");
             printf("Please choose column then row separated by a comma: ");
+            pthread_create(&myThread, NULL, updateTime,&myAux);
             temp = getInput(&inputCol, &inputRow);
+            pthread_cancel(myThread);
             if(temp == 4){
-                pthread_cancel(myThread);
                 return;
             }
             else if(temp == 1){ //Undo
@@ -122,7 +124,6 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
                 lastWasUndoRedo = 1;
                 redoPlay(&inputRow, &inputCol, &redo[0][0], 2*n*(n+1), &turn);
             }else if(temp == 3){
-                pthread_cancel(myThread);
                 do{
                     printf("Please choose saved games 1, 2 or 3 to overwrite: ");
                     inputToMenu(&temp);
@@ -147,7 +148,6 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
     }
     printGrid(grid, size);
     printBar(turn, player1, player2, startingTime, comp);
-    pthread_cancel(myThread);
     if(comp && player2.score>player1.score){
         printf("\n%sComputer%s has won the game\n", "\033[0;31m", "\033[0m");
         printf("Press Enter to return to main menu\n");
