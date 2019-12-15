@@ -87,22 +87,31 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
             return;
         }
         else if(temp == 1){ //Undo
-            undoPlay(grid, size, &undo[0][0], 2*n*(n+1), boxes, &turn, &player1, &player2, &redo[0][0]);
-            lastWasUndoRedo = 1;
-            continue;
+            if(undo[0][0]!=0){
+                undoPlay(grid, size, &undo[0][0], 2*n*(n+1), boxes, &turn, &player1, &player2, &redo[0][0]);
+                lastWasUndoRedo = 1;
+                continue;
+            }else{
+                inputCol = 0;
+                inputRow = 0;
+            }
         }else if(temp == 2){ //Redo
             redoPlay(&inputRow, &inputCol, &redo[0][0], 2*n*(n+1), &turn);
             thisIsUndoRedo = 1;
             lastWasUndoRedo = 1;
-        }else if(temp == 3){
+        }else if(temp == 3){//Save
             do{
-                printf("Please choose saved games 1, 2 or 3 to overwrite: ");
+                printf("Please choose saved games 1, 2 or 3 to overwrite. Press 4 to return back to game: ");
                 inputToMenu(&temp);
-            }while(temp!=1 && temp!=2 && temp!=3);
-            saveBoxes(boxes, n, temp);
-            saveGrid(grid, size, comp, movesLeft(0), temp);
-            saveData(player1.score, player1.turnsPlayed, player2.score, player2.turnsPlayed, turn, temp);
-            return;
+            }while(temp!=1 && temp!=2 && temp!=3 &&temp!=4);
+                if(temp!=4){
+                    saveBoxes(boxes, n, temp);
+                    saveGrid(grid, size, comp, movesLeft(0), temp);
+                    saveData(player1.score, player1.turnsPlayed, player2.score, player2.turnsPlayed, turn, temp);
+                    return;
+                }else{
+                    continue;
+                }
         }
 
         while(flag && !drawLine(grid, size, inputRow, inputCol, turn, &undo[0][0], &redo[0][0], turn, lastWasUndoRedo, 2*n*(n+1), thisIsUndoRedo)){
@@ -116,22 +125,31 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
                 return;
             }
             else if(temp == 1){ //Undo
-                undoPlay(grid, size, &undo[0][0], 2*n*(n+1), boxes, &turn, &player1, &player2, &redo[0][0]);
-                flag=0;
-                lastWasUndoRedo = 1;
+                if(undo[0][0]!=0){
+                    undoPlay(grid, size, &undo[0][0], 2*n*(n+1), boxes, &turn, &player1, &player2, &redo[0][0]);
+                    flag=0;
+                    lastWasUndoRedo = 1;
+                }else{
+                    inputCol = 0;
+                    inputRow = 0;
+                }
             }else if(temp == 2){ //Redo
                 thisIsUndoRedo = 1;
                 lastWasUndoRedo = 1;
                 redoPlay(&inputRow, &inputCol, &redo[0][0], 2*n*(n+1), &turn);
-            }else if(temp == 3){
+            }else if(temp == 3){//Save
                 do{
-                    printf("Please choose saved games 1, 2 or 3 to overwrite: ");
+                    printf("Please choose saved games 1, 2 or 3 to overwrite. Press 4 to return back to game: ");
                     inputToMenu(&temp);
-                }while(temp!=1 && temp!=2 && temp!=3);
-                saveBoxes(boxes, n, temp);
-                saveGrid(grid, size, comp, movesLeft(0), temp);
-                saveData(player1.score, player1.turnsPlayed, player2.score, player2.turnsPlayed, turn, temp);
-                return;
+                }while(temp!=1 && temp!=2 && temp!=3 && temp!=4);
+                    if(temp!=4){
+                        saveBoxes(boxes, n, temp);
+                        saveGrid(grid, size, comp, movesLeft(0), temp);
+                        saveData(player1.score, player1.turnsPlayed, player2.score, player2.turnsPlayed, turn, temp);
+                        return;
+                    }else{
+                        flag=0;
+                    }
                 }
         }
         if(!flag)continue;
