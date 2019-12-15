@@ -474,6 +474,6 @@ void holdOn(){
     #ifdef _WIN32
     Sleep(1000);
     #else
-    Sleep(1);
+    sleep(1);
     #endif // _WIN32
 }
