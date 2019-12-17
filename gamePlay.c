@@ -32,8 +32,10 @@ void* updateTime(void*p){
             AuxStartingTime = time(0);
             getxy(&originalX, &originalY);
             gotoxy(61,n+1+n*3+11);
-            printf("%d minute(s) %d seconds\n", timeElapsed/60, timeElapsed%60);
+            printf("%2d minute(s) %2d seconds\n", timeElapsed/60, timeElapsed%60);
             gotoxy(originalX, originalY);
+        }else{
+            holdOn();
         }
     }
 }
@@ -285,7 +287,7 @@ void printBar(int turn, Player player1, Player player2, int startingTime, int co
         printf("\033[0m");
     }
     printf("Total moves left: %4d", movesLeft(0));
-    printf("     Time elapsed: %d minute(s) %d seconds\n", timeElapsed/60, timeElapsed%60);
+    printf("     Time elapsed: %2d minute(s) %2d seconds\n", timeElapsed/60, timeElapsed%60);
     printf("\033[0;34m");
     printf("\nPlayer 1:     played %d turns     Score = %d", player1.turnsPlayed, player1.score);
     printf("\033[0;31m");
@@ -494,6 +496,7 @@ void holdOn(){
     sleep(1);
     #endif // _WIN32
 }
+
 void gotoxy(int x, int y)  //display ouput where you want .
 {
     COORD coord;
