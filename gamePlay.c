@@ -6,35 +6,34 @@
 #endif // _WIN32
 #include "rankings.h"
 #include <pthread.h>
+#include <conio.h>
 typedef struct{ // structure containing both players
     int turnsPlayed;
     int score;
     }Player;
 
 typedef struct{
-    char* grid;
-    int* size;
-    int* turn;
-    Player* player1;
-    Player* player2;
-    int* startingTime;
-    int* comp;
+    int auxn;
+    int auxtime;
 }AUX;
 
 void* updateTime(void*p){
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+    AUX myAux = *(AUX*)p;
+    int startingTime = myAux.auxtime;
+    int n = myAux.auxn;
     int AuxStartingTime = time(0);
-    AUX* myAux = (AUX*)p;
-    Player* player1 = (*myAux).player1;
-    Player* player2 = (*myAux).player2;
+    int timeElapsed;
+    int originalX, originalY;
+
     while(1){
-        if(time(0)-AuxStartingTime >= 60){
+        if(time(0)-AuxStartingTime >= 1){
+            timeElapsed = time(0) - startingTime;
             AuxStartingTime = time(0);
-            printGrid((*myAux).grid, *(*myAux).size);
-            printBar(*(*myAux).turn, *player1, *player2, *(*myAux).startingTime, *(*myAux).comp);
-            printf("Please choose column then row separated by a comma: ");
-        }else{
-            holdOn();
+            getxy(&originalX, &originalY);
+            gotoxy(61,n+1+n*3+11);
+            printf("%d minute(s) %d seconds\n", timeElapsed/60, timeElapsed%60);
+            gotoxy(originalX, originalY);
         }
     }
 }
@@ -65,8 +64,8 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
         loadData(&turn, &player1.turnsPlayed, &player1.score, &player2.turnsPlayed, &player2.score, loaded);
     }
     //for multi-threading
-    AUX myAux = {grid, &size, &turn, &player1, &player2, &startingTime, &comp};
     pthread_t myThread;
+    AUX myAux = {n, startingTime};
     //
     while(movesLeft(0)){
         thisIsUndoRedo = 0;
@@ -285,7 +284,7 @@ void printBar(int turn, Player player1, Player player2, int startingTime, int co
         }
         printf("\033[0m");
     }
-    printf("Total moves left: %d", movesLeft(0));
+    printf("Total moves left: %4d", movesLeft(0));
     printf("     Time elapsed: %d minute(s) %d seconds\n", timeElapsed/60, timeElapsed%60);
     printf("\033[0;34m");
     printf("\nPlayer 1:     played %d turns     Score = %d", player1.turnsPlayed, player1.score);
@@ -494,4 +493,33 @@ void holdOn(){
     #else
     sleep(1);
     #endif // _WIN32
+}
+void gotoxy(int x, int y)  //display ouput where you want .
+{
+    COORD coord;
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+//The following function is from stackoverflow:
+// "https://stackoverflow.com/questions/35800020/how-do-i-find-the-coordinates-of-the-cursor-in-a-console-window"
+COORD GetConsoleCursorPosition(HANDLE hConsoleOutput)
+{
+    CONSOLE_SCREEN_BUFFER_INFO cbsi;
+    if (GetConsoleScreenBufferInfo(hConsoleOutput, &cbsi))
+    {
+        return cbsi.dwCursorPosition;
+    }
+    else
+    {
+        // The function failed. Call GetLastError() for details.
+        COORD invalid = { 0, 0 };
+        return invalid;
+    }
+}
+
+void getxy(int* originalX, int* originalY){
+    COORD coord = GetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE));
+    *originalX = coord.X;
+    *originalY = coord.Y;
 }
