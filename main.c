@@ -51,9 +51,9 @@ int main()
                     flag2 = 1;
                     break;
                 }else{
-                    printf("Please enter desired number of boxes (between 1 & 9): ");
+                    printf("Please enter desired number of boxes (between 1 & 7): ");
                     inputToMenu(&n);
-                    while(n<1 || n>9){
+                    while(n<1 || n>7){
                         printf("Invalid, please try again\n");
                         inputToMenu(&n);
                     }

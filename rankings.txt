@@ -3,7 +3,7 @@ AhmadWaleed 500
 AbdelrahmanKhaled 500
 AhmedAbdelmonem 500
 youssefWaleed 6
-placeholder1 0
+myAmazingTestName 3
 placeholder2 0
 placeholder3 0
 testName 0

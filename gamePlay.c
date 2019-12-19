@@ -48,7 +48,7 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
         movesLeft(loadedMoves);
     }
     else{
-        movesLeft(2*n*(n+1)); //initializes number of moves left till end of game////////////////OR load
+        movesLeft(2*n*(n+1)); //initializes number of moves left till end of game
     }
     int temp = 0; //to store value of input; useful for in-game menu
     int scoreInc; //to store increment of score
@@ -117,7 +117,10 @@ void play(char* grid, int size, int comp, int loaded, int loadedMoves){
 
         while(flag && !drawLine(grid, size, inputRow, inputCol, turn, &undo[0][0], &redo[0][0], turn, lastWasUndoRedo, 2*n*(n+1), thisIsUndoRedo)){
             thisIsUndoRedo = 0;
-            printf("Invalid\n");
+            gotoxy(0,n+1+n*3+18);
+            printf("\33[2K\n\33[2K");
+            gotoxy(0,n+1+n*3+18);
+            printf("\033[1mInvalid\033[0m\n");
             printf("Please choose column then row separated by a comma: ");
             pthread_create(&myThread, NULL, updateTime,&myAux);
             temp = getInput(&inputCol, &inputRow);
@@ -305,7 +308,11 @@ int getInput(int* col, int* row){
 	cRow[2]='\0';
 	cRow[1]='\0';
 	char temp;
-	while((cCol[0] = getchar()) == '\n');
+	if((cCol[0] = getchar()) == '\n'){
+        *col = 0;
+        *row = 0;
+        return 0;
+	}
 	//for in-game menu
 	if(cCol[0] == 'E' || cCol[0] == 'e'){
         if(getchar()=='\n')return 4;
@@ -496,7 +503,6 @@ void holdOn(){
     sleep(1);
     #endif // _WIN32
 }
-
 void gotoxy(int x, int y)  //display ouput where you want .
 {
     COORD coord;
