@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 #include "grid.h"
 #include "gamePlay.h"
 #include "rankings.h"
@@ -88,6 +89,11 @@ int main()
             do{
               inputToMenu(&choice);
               if(choice==1){
+                if(access("save1.txt",F_OK) == -1){
+                    printf("Game %d is empty\n",choice);
+                    while(getchar() != '\n');
+                    break;
+                }
                 loaded = choice;
                 loadInitial(&n,&comp,&loadedMoves,choice);
                 int size = 2*n+1;
@@ -95,6 +101,11 @@ int main()
                 loadGrid(grid,size,choice);
                 play(grid,size,comp,loaded,loadedMoves);
               }else if(choice==2){
+                if(access("save2.txt",F_OK) == -1){
+                    printf("Game %d is empty\n",choice);
+                    while(getchar() != '\n');
+                    break;
+                }
                 loaded = choice;
                 loadInitial(&n,&comp,&loadedMoves,choice);
                 int size = 2*n+1;
@@ -102,6 +113,11 @@ int main()
                 loadGrid(grid,size,choice);
                 play(grid,size,comp,loaded,loadedMoves);
               }else if(choice==3){
+                if(access("save3.txt",F_OK) == -1){
+                    printf("Game %d is empty\n",choice);
+                    while(getchar() != '\n');
+                    break;
+                }
                 loaded = choice;
                 loadInitial(&n,&comp,&loadedMoves,choice);
                 int size = 2*n+1;
